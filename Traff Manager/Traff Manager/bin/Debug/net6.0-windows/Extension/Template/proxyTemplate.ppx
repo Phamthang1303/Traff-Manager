@@ -1,0 +1,5 @@
+		<Proxy id="{id}" type="{type}">{authen}
+			<Options>48</Options>
+			<Port>{port}</Port>
+			<Address>{ipAddress}</Address>
+		</Proxy>

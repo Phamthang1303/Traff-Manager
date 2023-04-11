@@ -1,5 +1,8 @@
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Text;
+using System.Collections.Generic;
 
 namespace Traff_Manager
 {
@@ -8,16 +11,20 @@ namespace Traff_Manager
         public Form1()
         {
             InitializeComponent();
-            settings = C.GetEachLineInFile(@"Extension\settings.json")[0];
+            settings = C.GetEachLineInFile(@"Extension\Template\settingsTemplate.json")[0];
             settings = settings.Replace("{token}", tbToken.Text);
+            lstProxy = loadProxy();
         }
 
         #region Kai bao bien
         int status = 0;
-        int maxThread = 0;
+        int maxThread = 3;
 
         string settings = "";
         string roamingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+        List<Proxy> lstProxy = new List<Proxy>();
+
 
         Task Run;
         Control C = new Control();
@@ -43,7 +50,8 @@ namespace Traff_Manager
             {
                 int iThread = 0;
                 int inLine = 0;
-                while (true)
+                List<int> test = new List<int> { 12304, 15444, 16356 };
+                while (inLine < test.Count)
                 {
                     if (iThread < maxThread)
                     {
@@ -52,7 +60,9 @@ namespace Traff_Manager
                         {
                             try
                             {
-                                startfaucet(inLine);
+                                //startfaucet(inLine);
+                                C.PerformanceCounter(test[inLine]);
+
                             }
                             catch { }
                             Interlocked.Decrement(ref iThread);
@@ -110,13 +120,81 @@ namespace Traff_Manager
             return row;
         }
 
-        // Control Proxifier
-        void ProxifierAction()
+        /**
+         * Manager Proxifier
+         * Replate file setting Default.ppx for Proxifier
+         * params List<Proxy> list proxy
+         */
+        void ProxifierManager(List<Proxy> lstProxis)
         {
+            // Kill process Proxifier.exe
+            C.killProcess("Proxifier.exe");
+            string templateDefault = "";
+            string proxyTemplate = "";
+            string authenTemplate = "";
+            string ruleTemplate = "";
+            string pathDefault = @"Extension\Proxifier PE\Profiles\Default.ppx";
 
+            // Read form Template
+            templateDefault = C.ReadAllTextInFile(@"Extension\Template\defaultTemplate.ppx");
+            proxyTemplate = C.ReadAllTextInFile(@"Extension\Template\proxyTemplate.ppx");
+            authenTemplate = C.ReadAllTextInFile(@"Extension\Template\authenTemplate.ppx");
+            ruleTemplate = C.ReadAllTextInFile(@"Extension\Template\ruleTemplate.ppx");
+
+            int count = 0;
+            string rule = "";
+            string proxy = "";
+            string authen = "";
+            string strDefault = "";
+            StringBuilder proxyList = new StringBuilder();
+            StringBuilder ruleList = new StringBuilder();
+
+            // For create Default.ppx file
+            foreach (Proxy prx in lstProxis)
+            {
+                count++;
+                // check is authen
+                if (prx.isAuthen)
+                {
+                    authen = "\n" + authenTemplate.Replace("{password}", prx.password).Replace("{username}", prx.username);
+                }
+                else
+                {
+                    authen = "";
+                }
+                // Create form each proxy
+                proxy = proxyTemplate.Replace("{id}", count.ToString()).Replace("{type}", prx.isType)
+                        .Replace("{ipAddress}", prx.ipAddress).Replace("{port}", prx.port.ToString()).Replace("{authen}", authen);
+                // Create rule for app
+                rule = ruleTemplate.Replace("{name}", "Rule " + count).Replace("{app}", "Traffmonetizer" + count + ".exe").Replace("{action}", count.ToString());
+                if (prx.Equals(lstProxis.Last()))
+                {
+                    proxyList.Append(proxy);
+                    ruleList.Append(rule);
+                }
+                else
+                {
+                    proxyList.Append(proxy + "\n");
+                    ruleList.Append(rule + "\n");
+                }
+                
+            }
+            // Create form Default.ppx file with all proxies, rules
+            strDefault = templateDefault.Replace("{ProxyList}", proxyList.ToString()).Replace("{RuleList}", ruleList.ToString());
+            // Replate Default.ppx file
+            if (File.Exists(pathDefault))
+            {
+                File.Delete(pathDefault);
+            }
+            C.WriteFileTxt(pathDefault, strDefault);
+            
         }
 
-        // Clone folder traff
+        /**
+         * Clone folder traff
+         * Replace file settings.json update Token
+         * Rename Traffmonetizer.exe, Traffmonetizer.exe.config
+         */
         int CloneTraff(int quantity)
         {
             int count = 0;
@@ -166,32 +244,62 @@ namespace Traff_Manager
             return count;
         }
 
+        /**
+         * Load list proxy
+         * Save to List<Proxy> with type, authen
+         */
+        List<Proxy> loadProxy()
+        {
+            Proxy proxy;
+            List<Proxy> lstPrx = new List<Proxy>();
+            foreach (string prx in File.ReadAllLines(@"Data\proxy.txt").ToList())
+            {
+                
+                if (prx.Contains("|"))
+                {
+                    proxy = new Proxy(prx.Split('|')[1]);
+                    proxy.isType = prx.Split('|')[0].ToUpper();
+                }
+                else
+                {
+                    proxy = new Proxy(prx);
+                    proxy.isType = "HTTPS";
+                }
+
+                lstPrx.Add(proxy);
+            }
+            return lstPrx;
+        }
         #endregion
 
         #region Active Form Button
         private void btnStart_Click(object sender, EventArgs e)
         {
-            CloneTraff(2);
+            //CloneTraff(2);
+            //ProxifierManager(lstProxy);
 
-            ////startfaucet(0);
-            //if (btnStart.Text == "Start")
-            //{
-            //    //StartApp StartApp = new StartApp();
-            //    Run = new Task(() => { run(); });
-            //    Run.Start();
-            //    status = 0;
-            //    btnStart.Text = "Stop";
-            //}
-            //else if (btnStart.Text == "Stop")
-            //{
-            //    status = 1;
-            //    btnStart.Text = "Start";
-            //}
+            //startfaucet(0);
+            if (btnStart.Text == "Start")
+            {
+                //StartApp StartApp = new StartApp();
+                Run = new Task(() => { run(); });
+                Run.Start();
+                status = 0;
+                btnStart.Text = "Stop";
+            }
+            else if (btnStart.Text == "Stop")
+            {
+                status = 1;
+                btnStart.Text = "Start";
+            }
         }
 
         private void btnProxy_Click(object sender, EventArgs e)
         {
-
+            Process.Start(@"Data\proxy.txt");
+            lstProxy.Clear();
+            lstProxy = loadProxy();
+            MessageBox.Show("Load all proxy: " + lstProxy.Count);
         }
 
         private void tbToken_TextChanged(object sender, EventArgs e)

@@ -1,0 +1,4 @@
+			<Authentication enabled="true">
+				<Password>{password}</Password>
+				<Username>{username}</Username>
+			</Authentication>

@@ -20,6 +20,11 @@ namespace Traff_Manager
             return File.ReadAllLines(filePath).ToList();
         }
 
+        public string ReadAllTextInFile(string filePath)
+        {
+            return File.ReadAllText(filePath);
+        }
+
         public void WriteFileTxt(string pathFile, string text)
         {
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(pathFile, true))
@@ -58,17 +63,6 @@ namespace Traff_Manager
                     {
                         File.Copy(filePath, filePath.Replace(sourceDirectory, targetDirectory), true);
                     }
-
-                    //// lấy danh sách tệp từ thư mục nguồn
-                    //string[] files = Directory.GetFiles(sourceDirectory);
-
-                    //// sao chép từng tệp sang thư mục đích
-                    //foreach (string file in files)
-                    //{
-                    //    string fileName = Path.GetFileName(file);
-                    //    string targetPath = Path.Combine(targetDirectory, fileName);
-                    //    File.Copy(file, targetPath, true);
-                    //}
                     return true;
                 }
             }
@@ -98,6 +92,49 @@ namespace Traff_Manager
             {
                 string json = r.ReadToEnd();
                 //List<SettingsTraff> settingsTraffs = JsonConvert.DeserializeObject<List<SettingsTraff>>(json);
+            }
+        }
+
+        public void killProcess(string processName)
+        {
+            try
+            {
+                foreach (var process in Process.GetProcessesByName(processName))
+                {
+                    process.Kill();
+                }
+            }
+            catch { }
+        }
+
+        public void PerformanceCounter(int processId)
+        {
+            var process = Process.GetProcessById(processId);
+            string fileLog = processId + "log.txt";
+            // Create the Performance Counters for the application
+            var networkCounter = new PerformanceCounter("Process", "IO Data Bytes/sec", process.ProcessName, true);
+            var upCounter = new PerformanceCounter("Process", "IO Write Bytes/sec", process.ProcessName, true);
+            var downCounter = new PerformanceCounter("Process", "IO Read Bytes/sec", process.ProcessName, true);
+
+            // Continuously monitor the network usage  
+            double prevNetworkUsage = 0;
+            double upUsage = 0;
+            double downUsage = 0;
+            WriteFileTxt(fileLog, " Process ID: " + processId);
+            WriteFileTxt(fileLog, " Process Name: " + process.ProcessName);
+            while (true)
+            {
+                // Get the network usage of the application
+                double networkUsage = networkCounter.NextValue();
+                if (prevNetworkUsage != networkUsage)
+                {
+                    upUsage = upCounter.NextValue() / 1024;
+                    downUsage = downCounter.NextValue() / 1024;
+                    //Console.WriteLine($"Up: {upUsage:F2}KB/s, Down: {downUsage:F2}KB/s");
+                    WriteFileTxt(fileLog, $"Up: {upUsage:F2}KB/5s, Down: {downUsage:F2}KB/5s");
+                    prevNetworkUsage = networkUsage;
+                }
+                Thread.Sleep(5000); // Wait for 1 second before checking again
             }
         }
     }

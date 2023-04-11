@@ -14,6 +14,8 @@ namespace Traff_Manager
         public int? port { get; set; }
         public string? username { get; set; }
         public string? password { get; set; }
+        public bool isAuthen { get; } = false;
+        public string? isType { get; set; }
 
         public Proxy(string? ipPortUssernamePassword = null) {
             if (!string.IsNullOrEmpty(ipPortUssernamePassword))
@@ -22,14 +24,15 @@ namespace Traff_Manager
                 if (arr.Length == 2)
                 {
                     ipAddress = arr[0];
-                    password = arr[1];
+                    port = Int32.Parse(arr[1]);
                 }
                 else if (arr.Length == 4)
                 {
                     ipAddress = arr[0];
-                    password = arr[1];
+                    port = Int32.Parse(arr[1]);
                     username = arr[2];
                     password = arr[3];
+                    isAuthen = true;
                 }
             }
         }

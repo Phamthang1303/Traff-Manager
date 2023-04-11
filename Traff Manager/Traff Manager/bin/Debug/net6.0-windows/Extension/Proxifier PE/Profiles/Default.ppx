@@ -25,36 +25,54 @@
 	<ProxyList>
 		<Proxy id="1" type="SOCKS5">
 			<Options>48</Options>
-			<Port>10080</Port>
-			<Address>47.88.8.11</Address>
-		</Proxy>
-		<Proxy id="2" type="SOCKS5">
-			<Options>48</Options>
-			<Port>4145</Port>
-			<Address>24.249.199.12</Address>
-		</Proxy>
-		<Proxy id="3" type="SOCKS5">
-			<Options>48</Options>
-			<Port>1212</Port>
-			<Address>13.13.13.13</Address>
-		</Proxy>
-		<Proxy id="4" type="SOCKS5">
-			<Options>48</Options>
 			<Port>1234</Port>
-			<Address>10.10.10.100</Address>
+			<Address>1.2.3.4</Address>
+		</Proxy>
+		<Proxy id="2" type="HTTPS">
+			<Authentication enabled="true">
+				<Password>pass1</Password>
+				<Username>user1</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>1111</Port>
+			<Address>1.1.1.1</Address>
+		</Proxy>
+		<Proxy id="3" type="SOCKS4">
+			<Authentication enabled="true">
+				<Password>pas2</Password>
+				<Username>user2</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>1112</Port>
+			<Address>1.1.1.2</Address>
+		</Proxy>
+		<Proxy id="4" type="HTTPS">
+			<Options>48</Options>
+			<Port>1113</Port>
+			<Address>1.1.1.3</Address>
 		</Proxy>
 	</ProxyList>
 	<ChainList />
 	<RuleList>
 		<Rule enabled="true">
 			<Action type="Proxy">1</Action>
-			<Applications>traffmonetizer1.exe</Applications>
-			<Name>rules 01</Name>
+			<Applications>Traffmonetizer1.exe</Applications>
+			<Name>Rule 1</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">2</Action>
-			<Applications>traffmonetizer2.exe</Applications>
-			<Name>rules 02</Name>
+			<Applications>Traffmonetizer2.exe</Applications>
+			<Name>Rule 2</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">3</Action>
+			<Applications>Traffmonetizer3.exe</Applications>
+			<Name>Rule 3</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">4</Action>
+			<Applications>Traffmonetizer4.exe</Applications>
+			<Name>Rule 4</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">1</Action>
@@ -62,3 +80,4 @@
 		</Rule>
 	</RuleList>
 </ProxifierProfile>
+

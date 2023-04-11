@@ -1,0 +1,5 @@
+		<Rule enabled="true">
+			<Action type="Proxy">{action}</Action>
+			<Applications>{app}</Applications>
+			<Name>{name}</Name>
+		</Rule>

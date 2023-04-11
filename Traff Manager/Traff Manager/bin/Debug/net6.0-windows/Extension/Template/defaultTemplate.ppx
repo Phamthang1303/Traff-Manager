@@ -23,30 +23,13 @@
 		</ProxificationPortableEngine>
 	</Options>
 	<ProxyList>
-		<Proxy id="101" type="HTTPS">
-			<Authentication enabled="true">
-				<Password>4xoxua9hb6io</Password>
-				<Username>yqwgnrzp</Username>
-			</Authentication>
-			<Options>48</Options>
-			<Port>6305</Port>
-			<Address>45.192.150.122</Address>
-		</Proxy>
+{ProxyList}
 	</ProxyList>
 	<ChainList />
 	<RuleList>
+{RuleList}
 		<Rule enabled="true">
-			<Action type="Proxy">100</Action>
-			<Applications>Traffmonetizer100.exe</Applications>
-			<Name>Traffmonetizer100</Name>
-		</Rule>
-		<Rule enabled="true">
-			<Action type="Proxy">101</Action>
-			<Applications>Traffmonetizer101.exe</Applications>
-			<Name>Traffmonetizer101</Name>
-		</Rule>
-		<Rule enabled="true">
-			<Action type="Direct" />
+			<Action type="Proxy">1</Action>
 			<Name>Default</Name>
 		</Rule>
 	</RuleList>
