@@ -193,12 +193,12 @@ namespace Traff_Manager
         {
 
         }
-        #endregion
 
         private void tbToken_TextChanged(object sender, EventArgs e)
         {
             settings = C.GetEachLineInFile(@"Extension\settings.json")[0];
             settings = settings.Replace("{token}", tbToken.Text);
         }
+        #endregion
     }
 }

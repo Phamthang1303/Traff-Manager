@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxifierProfile version="102" platform="Windows" product_id="1" product_minver="400">
+	<Options>
+		<Resolve>
+			<AutoModeDetection enabled="true" />
+			<ViaProxy enabled="false" />
+			<ExclusionList OnlyFromListMode="false">%ComputerName%; localhost; *.local</ExclusionList>
+			<DnsUdpMode>0</DnsUdpMode>
+		</Resolve>
+		<Encryption mode="disabled" />
+		<ConnectionLoopDetection enabled="true" resolve="true" />
+		<ProcessOtherUsers enabled="false" />
+		<ProcessServices enabled="false" />
+		<HandleDirectConnections enabled="false" />
+		<HttpProxiesSupport enabled="false" />
+		<ProxificationPortableEngine subsystem="32">
+			<Type hotpatch="true">Prologue</Type>
+			<Location>Winsock</Location>
+		</ProxificationPortableEngine>
+		<ProxificationPortableEngine subsystem="64">
+			<Type hotpatch="false">Prologue</Type>
+			<Location>Winsock</Location>
+		</ProxificationPortableEngine>
+	</Options>
+	<ProxyList>
+		<Proxy id="1" type="SOCKS5">
+			<Options>48</Options>
+			<Port>10080</Port>
+			<Address>47.88.8.11</Address>
+		</Proxy>
+		<Proxy id="2" type="SOCKS5">
+			<Options>48</Options>
+			<Port>4145</Port>
+			<Address>24.249.199.12</Address>
+		</Proxy>
+		<Proxy id="3" type="SOCKS5">
+			<Options>48</Options>
+			<Port>1212</Port>
+			<Address>13.13.13.13</Address>
+		</Proxy>
+		<Proxy id="4" type="SOCKS5">
+			<Options>48</Options>
+			<Port>1234</Port>
+			<Address>10.10.10.100</Address>
+		</Proxy>
+	</ProxyList>
+	<ChainList />
+	<RuleList>
+		<Rule enabled="true">
+			<Action type="Proxy">1</Action>
+			<Applications>traffmonetizer1.exe</Applications>
+			<Name>rules 01</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">2</Action>
+			<Applications>traffmonetizer2.exe</Applications>
+			<Name>rules 02</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">1</Action>
+			<Name>Default</Name>
+		</Rule>
+	</RuleList>
+</ProxifierProfile>

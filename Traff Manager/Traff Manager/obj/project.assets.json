@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Thang\\Code_C#\\Code_ New\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
+      "projectUniqueName": "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
       "projectName": "Traff Manager",
-      "projectPath": "D:\\Thang\\Code_C#\\Code_ New\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
+      "projectPath": "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
       "packagesPath": "C:\\Users\\Thang Pham\\.nuget\\packages\\",
-      "outputPath": "D:\\Thang\\Code_C#\\Code_ New\\Traff Manager\\Traff Manager\\obj\\",
+      "outputPath": "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Thang Pham\\AppData\\Roaming\\NuGet\\NuGet.Config",

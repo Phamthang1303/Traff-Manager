@@ -1,0 +1,53 @@
+            <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxifierProfile version="102" platform="Windows" product_id="1" product_minver="400">
+	<Options>
+		<Resolve>
+			<AutoModeDetection enabled="true" />
+			<ViaProxy enabled="false" />
+			<ExclusionList OnlyFromListMode="false">%ComputerName%; localhost; *.local</ExclusionList>
+			<DnsUdpMode>0</DnsUdpMode>
+		</Resolve>
+		<Encryption mode="disabled" />
+		<ConnectionLoopDetection enabled="true" resolve="true" />
+		<ProcessOtherUsers enabled="false" />
+		<ProcessServices enabled="false" />
+		<HandleDirectConnections enabled="false" />
+		<HttpProxiesSupport enabled="false" />
+		<ProxificationPortableEngine subsystem="32">
+			<Type hotpatch="true">Prologue</Type>
+			<Location>Winsock</Location>
+		</ProxificationPortableEngine>
+		<ProxificationPortableEngine subsystem="64">
+			<Type hotpatch="false">Prologue</Type>
+			<Location>Winsock</Location>
+		</ProxificationPortableEngine>
+	</Options>
+	<ProxyList>
+		<Proxy id="101" type="HTTPS">
+			<Authentication enabled="true">
+				<Password>4xoxua9hb6io</Password>
+				<Username>yqwgnrzp</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>6305</Port>
+			<Address>45.192.150.122</Address>
+		</Proxy>
+	</ProxyList>
+	<ChainList />
+	<RuleList>
+		<Rule enabled="true">
+			<Action type="Proxy">100</Action>
+			<Applications>Traffmonetizer100.exe</Applications>
+			<Name>Traffmonetizer100</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">101</Action>
+			<Applications>Traffmonetizer101.exe</Applications>
+			<Name>Traffmonetizer101</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Direct" />
+			<Name>Default</Name>
+		</Rule>
+	</RuleList>
+</ProxifierProfile>
