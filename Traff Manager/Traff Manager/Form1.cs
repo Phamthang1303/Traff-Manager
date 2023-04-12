@@ -52,7 +52,9 @@ namespace Traff_Manager
             try
             {
                 maxThread = CloneTraff(lstProxy.Count());
+                C.Wait(2);
                 ProxifierManager(lstProxy);
+                C.Wait(5);
                 RunMain();
             }
             catch (Exception e)
@@ -107,7 +109,7 @@ namespace Traff_Manager
         int startfaucet(int row)
         {
             int status = 0;
-            Proxy proxy = lstProxy[row];
+            Proxy proxy = lstProxy[row-1];
             try
             {
                 #region Add data GridViews
@@ -147,13 +149,25 @@ namespace Traff_Manager
                         double networkUsage = networkCounter.NextValue();
                         if (prevNetworkUsage != networkUsage)
                         {
+                            trafficUpEachMin -= upUsage;
+                            trafficUpEachMin -= downUsage;
                             upUsage = upCounter.NextValue() / 1024 / 1024;
                             downUsage = downCounter.NextValue() / 1024 / 1024;
                             traceTraffUpEachMin[counter] = upUsage;
                             traceTraffDownEachMin[counter] = downUsage;
+                            
                             trafficUpEachMin += upUsage;
                             trafficDownEachMin += downUsage;
-                            Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage):F2}");
+                            trafficUpSum += upUsage / 1024;
+                            trafficDownSum += downUsage / 1024;
+                            if ((upUsage + downUsage)*1024 < 1)
+                            {
+                                Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage) * 1024:F2}" + "KB/60s");
+                            }
+                            else
+                            {
+                                Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage):F2}MB/60s");
+                            }
                             prevNetworkUsage = networkUsage;
                         }
                         C.Wait(60); // Wait for 60 second before checking again
@@ -169,7 +183,14 @@ namespace Traff_Manager
                         trafficDownEach24H -= totalDownTraff24H;
                         totalDownTraff24H = traceTraffDownEachMin.Sum();
                         trafficDownEach24H += totalDownTraff24H;
-                        Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H):F2}");
+                        if ((totalUpTraff24H + totalDownTraff24H) > 1024)
+                        {
+                            Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H)/1024:F2}GB/24H");
+                        }
+                        else
+                        {
+                            Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H):F2}MB/24H");
+                        }
                     }
                 }
             }
@@ -269,6 +290,22 @@ namespace Traff_Manager
                 // Clone Directory
                 if (Directory.Exists(sourceDirectory))
                 {
+                    // Clone directory root
+                    targetDirectory = roamingDirectory + @"\traffmonetizer";
+                    settingFile = targetDirectory + @"\settings.json";
+                    if (!Directory.Exists(targetDirectory))
+                    {
+                        // Copy directory
+                        if (C.CopyDirectory(sourceDirectory, targetDirectory))
+                        {
+                            if (File.Exists(settingFile))
+                            {
+                                File.Delete(settingFile);
+                            }
+                            C.WriteFileTxt(settingFile, settings);
+                        }
+                    }
+
                     for (int i = 1; i <= quantity; i++)
                     {
                         targetDirectory = roamingDirectory + @"\traffmonetizer" + i;
