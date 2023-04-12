@@ -137,5 +137,31 @@ namespace Traff_Manager
                 Thread.Sleep(5000); // Wait for 1 second before checking again
             }
         }
+
+        public void PerformanceCounter(Process process)
+        {
+            // Create the Performance Counters for the application
+            var networkCounter = new PerformanceCounter("Process", "IO Data Bytes/sec", process.ProcessName, true);
+            var upCounter = new PerformanceCounter("Process", "IO Write Bytes/sec", process.ProcessName, true);
+            var downCounter = new PerformanceCounter("Process", "IO Read Bytes/sec", process.ProcessName, true);
+
+            // Continuously monitor the network usage  
+            double prevNetworkUsage = 0;
+            double upUsage = 0;
+            double downUsage = 0;
+            while (true)
+            {
+                // Get the network usage of the application
+                double networkUsage = networkCounter.NextValue();
+                if (prevNetworkUsage != networkUsage)
+                {
+                    upUsage = upCounter.NextValue() / 1024;
+                    downUsage = downCounter.NextValue() / 1024;
+                    Console.WriteLine($"Up: {upUsage:F2}KB/s, Down: {downUsage:F2}KB/s");
+                    prevNetworkUsage = networkUsage;
+                }
+                Thread.Sleep(5000); // Wait for 1 second before checking again
+            }
+        }
     }
 }

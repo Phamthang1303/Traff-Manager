@@ -28,296 +28,454 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnStart = new Button();
-            label1 = new Label();
-            tbToken = new TextBox();
-            dtgv = new DataGridView();
-            gvStt = new DataGridViewTextBoxColumn();
-            gvName = new DataGridViewTextBoxColumn();
-            gvProxy = new DataGridViewTextBoxColumn();
-            gvType = new DataGridViewTextBoxColumn();
-            gvEarnEachMin = new DataGridViewTextBoxColumn();
-            gvEarnEach24H = new DataGridViewTextBoxColumn();
-            gvStatus = new DataGridViewTextBoxColumn();
-            numWait = new NumericUpDown();
-            btnProxy = new Button();
-            label3 = new Label();
-            label2 = new Label();
-            label4 = new Label();
-            tbSum = new TextBox();
-            label5 = new Label();
-            label6 = new Label();
-            tbEarnDay = new TextBox();
-            label7 = new Label();
-            label8 = new Label();
-            tbEarnMin = new TextBox();
-            label9 = new Label();
-            panel1 = new Panel();
-            tbActive = new TextBox();
-            label10 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dtgv).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numWait).BeginInit();
-            panel1.SuspendLayout();
-            SuspendLayout();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbToken = new System.Windows.Forms.TextBox();
+            this.dtgv = new System.Windows.Forms.DataGridView();
+            this.gvStt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvProxy = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvEarnEachMin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvEarnEach24H = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gvStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numWait = new System.Windows.Forms.NumericUpDown();
+            this.btnProxy = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbUpSum = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.tbUpEarn24H = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbUpEarnMin = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbDownSum = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbDownEarn24H = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tbDownEarnMin = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tbActive = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgv)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWait)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.SuspendLayout();
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(12, 12);
-            btnStart.Name = "btnStart";
-            btnStart.Size = new Size(102, 51);
-            btnStart.TabIndex = 0;
-            btnStart.Text = "Start";
-            btnStart.UseVisualStyleBackColor = true;
-            btnStart.Click += btnStart_Click;
+            this.btnStart.Location = new System.Drawing.Point(12, 12);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(102, 51);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "Start";
+            this.btnStart.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(120, 12);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 1;
-            label1.Text = "Token";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(120, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Token";
             // 
             // tbToken
             // 
-            tbToken.Location = new Point(120, 33);
-            tbToken.Name = "tbToken";
-            tbToken.Size = new Size(340, 23);
-            tbToken.TabIndex = 2;
-            tbToken.TextChanged += tbToken_TextChanged;
+            this.tbToken.Location = new System.Drawing.Point(120, 33);
+            this.tbToken.Name = "tbToken";
+            this.tbToken.Size = new System.Drawing.Size(340, 23);
+            this.tbToken.TabIndex = 2;
             // 
             // dtgv
             // 
-            dtgv.AllowUserToDeleteRows = false;
-            dtgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dtgv.Columns.AddRange(new DataGridViewColumn[] { gvStt, gvName, gvProxy, gvType, gvEarnEachMin, gvEarnEach24H, gvStatus });
-            dtgv.Location = new Point(226, 81);
-            dtgv.Name = "dtgv";
-            dtgv.ReadOnly = true;
-            dtgv.RowTemplate.Height = 25;
-            dtgv.Size = new Size(709, 438);
-            dtgv.TabIndex = 3;
+            this.dtgv.AllowUserToDeleteRows = false;
+            this.dtgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.gvStt,
+            this.gvName,
+            this.gvProxy,
+            this.gvType,
+            this.gvEarnEachMin,
+            this.gvEarnEach24H,
+            this.gvStatus});
+            this.dtgv.Location = new System.Drawing.Point(226, 81);
+            this.dtgv.Name = "dtgv";
+            this.dtgv.ReadOnly = true;
+            this.dtgv.RowTemplate.Height = 25;
+            this.dtgv.Size = new System.Drawing.Size(709, 438);
+            this.dtgv.TabIndex = 3;
             // 
             // gvStt
             // 
-            gvStt.HeaderText = "STT";
-            gvStt.Name = "gvStt";
-            gvStt.ReadOnly = true;
-            gvStt.Width = 50;
+            this.gvStt.HeaderText = "STT";
+            this.gvStt.Name = "gvStt";
+            this.gvStt.ReadOnly = true;
+            this.gvStt.Width = 50;
             // 
             // gvName
             // 
-            gvName.HeaderText = "Name";
-            gvName.MinimumWidth = 15;
-            gvName.Name = "gvName";
-            gvName.ReadOnly = true;
-            gvName.Width = 115;
+            this.gvName.HeaderText = "Name";
+            this.gvName.MinimumWidth = 15;
+            this.gvName.Name = "gvName";
+            this.gvName.ReadOnly = true;
+            this.gvName.Width = 115;
             // 
             // gvProxy
             // 
-            gvProxy.HeaderText = "Proxy";
-            gvProxy.MinimumWidth = 20;
-            gvProxy.Name = "gvProxy";
-            gvProxy.ReadOnly = true;
-            gvProxy.Width = 160;
+            this.gvProxy.HeaderText = "Proxy";
+            this.gvProxy.MinimumWidth = 20;
+            this.gvProxy.Name = "gvProxy";
+            this.gvProxy.ReadOnly = true;
+            this.gvProxy.Width = 160;
             // 
             // gvType
             // 
-            gvType.HeaderText = "Type";
-            gvType.Name = "gvType";
-            gvType.ReadOnly = true;
-            gvType.Width = 80;
+            this.gvType.HeaderText = "Type";
+            this.gvType.Name = "gvType";
+            this.gvType.ReadOnly = true;
+            this.gvType.Width = 80;
             // 
             // gvEarnEachMin
             // 
-            gvEarnEachMin.HeaderText = "MB/min";
-            gvEarnEachMin.Name = "gvEarnEachMin";
-            gvEarnEachMin.ReadOnly = true;
-            gvEarnEachMin.Width = 90;
+            this.gvEarnEachMin.HeaderText = "MB/min";
+            this.gvEarnEachMin.Name = "gvEarnEachMin";
+            this.gvEarnEachMin.ReadOnly = true;
+            this.gvEarnEachMin.Width = 90;
             // 
             // gvEarnEach24H
             // 
-            gvEarnEach24H.HeaderText = "MB/24H";
-            gvEarnEach24H.Name = "gvEarnEach24H";
-            gvEarnEach24H.ReadOnly = true;
-            gvEarnEach24H.Width = 90;
+            this.gvEarnEach24H.HeaderText = "MB/24H";
+            this.gvEarnEach24H.Name = "gvEarnEach24H";
+            this.gvEarnEach24H.ReadOnly = true;
+            this.gvEarnEach24H.Width = 90;
             // 
             // gvStatus
             // 
-            gvStatus.HeaderText = "Status";
-            gvStatus.Name = "gvStatus";
-            gvStatus.ReadOnly = true;
-            gvStatus.Width = 80;
+            this.gvStatus.HeaderText = "Status";
+            this.gvStatus.Name = "gvStatus";
+            this.gvStatus.ReadOnly = true;
+            this.gvStatus.Width = 80;
             // 
             // numWait
             // 
-            numWait.Location = new Point(83, 76);
-            numWait.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
-            numWait.Name = "numWait";
-            numWait.Size = new Size(41, 23);
-            numWait.TabIndex = 5;
-            numWait.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            this.numWait.Location = new System.Drawing.Point(83, 76);
+            this.numWait.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numWait.Name = "numWait";
+            this.numWait.Size = new System.Drawing.Size(41, 23);
+            this.numWait.TabIndex = 5;
+            this.numWait.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // btnProxy
             // 
-            btnProxy.Location = new Point(484, 12);
-            btnProxy.Name = "btnProxy";
-            btnProxy.Size = new Size(102, 51);
-            btnProxy.TabIndex = 6;
-            btnProxy.Text = "Proxy";
-            btnProxy.UseVisualStyleBackColor = true;
-            btnProxy.Click += btnProxy_Click;
+            this.btnProxy.Location = new System.Drawing.Point(484, 12);
+            this.btnProxy.Name = "btnProxy";
+            this.btnProxy.Size = new System.Drawing.Size(102, 51);
+            this.btnProxy.TabIndex = 6;
+            this.btnProxy.Text = "Proxy";
+            this.btnProxy.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(603, 15);
-            label3.Name = "label3";
-            label3.Size = new Size(277, 45);
-            label3.TabIndex = 7;
-            label3.Text = "Format:     IP:PORT:USERNAME:PASSWORD\r\nHTTPS:      (none)(Format) - Ex: 127.0.0.1:80\r\nSOCKS5:    Socks5|(Format) - Ex: Socks5|127.0.0.1:80";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(603, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(277, 45);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Format:     IP:PORT:USERNAME:PASSWORD\r\nHTTPS:      (none)(Format) - Ex: 127.0.0.1" +
+    ":80\r\nSOCKS5:    Socks5|(Format) - Ex: Socks5|127.0.0.1:80";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 80);
-            label2.Name = "label2";
-            label2.Size = new Size(66, 15);
-            label2.TabIndex = 4;
-            label2.Text = "Time Wait :";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(10, 39);
-            label4.Name = "label4";
-            label4.Size = new Size(37, 15);
-            label4.TabIndex = 8;
-            label4.Text = "Sum :";
-            // 
-            // tbSum
-            // 
-            tbSum.Location = new Point(81, 36);
-            tbSum.Name = "tbSum";
-            tbSum.Size = new Size(64, 23);
-            tbSum.TabIndex = 9;
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(148, 40);
-            label5.Name = "label5";
-            label5.Size = new Size(25, 15);
-            label5.TabIndex = 10;
-            label5.Text = "MB";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(148, 107);
-            label6.Name = "label6";
-            label6.Size = new Size(57, 15);
-            label6.TabIndex = 13;
-            label6.Text = "MB / 24H";
-            // 
-            // tbEarnDay
-            // 
-            tbEarnDay.Location = new Point(81, 103);
-            tbEarnDay.Name = "tbEarnDay";
-            tbEarnDay.Size = new Size(64, 23);
-            tbEarnDay.TabIndex = 12;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(10, 106);
-            label7.Name = "label7";
-            label7.Size = new Size(50, 15);
-            label7.TabIndex = 11;
-            label7.Text = "All Day :";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(148, 73);
-            label8.Name = "label8";
-            label8.Size = new Size(57, 15);
-            label8.TabIndex = 16;
-            label8.Text = "MB / min";
-            // 
-            // tbEarnMin
-            // 
-            tbEarnMin.Location = new Point(81, 69);
-            tbEarnMin.Name = "tbEarnMin";
-            tbEarnMin.Size = new Size(64, 23);
-            tbEarnMin.TabIndex = 15;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(10, 72);
-            label9.Name = "label9";
-            label9.Size = new Size(71, 15);
-            label9.TabIndex = 14;
-            label9.Text = "Earn Speed :";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 15);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Time Wait :";
             // 
             // panel1
             // 
-            panel1.Controls.Add(tbActive);
-            panel1.Controls.Add(label10);
-            panel1.Controls.Add(tbSum);
-            panel1.Controls.Add(label8);
-            panel1.Controls.Add(label4);
-            panel1.Controls.Add(tbEarnMin);
-            panel1.Controls.Add(label5);
-            panel1.Controls.Add(label9);
-            panel1.Controls.Add(label7);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(tbEarnDay);
-            panel1.Location = new Point(2, 379);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(218, 135);
-            panel1.TabIndex = 17;
+            this.panel1.Controls.Add(this.panel2);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.tbActive);
+            this.panel1.Controls.Add(this.label10);
+            this.panel1.Location = new System.Drawing.Point(2, 226);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(218, 293);
+            this.panel1.TabIndex = 17;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.tbUpSum);
+            this.panel2.Controls.Add(this.label17);
+            this.panel2.Controls.Add(this.label18);
+            this.panel2.Controls.Add(this.tbUpEarn24H);
+            this.panel2.Controls.Add(this.label19);
+            this.panel2.Controls.Add(this.tbUpEarnMin);
+            this.panel2.Controls.Add(this.label20);
+            this.panel2.Controls.Add(this.label21);
+            this.panel2.Controls.Add(this.label22);
+            this.panel2.Location = new System.Drawing.Point(3, 33);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(212, 127);
+            this.panel2.TabIndex = 29;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label4.Location = new System.Drawing.Point(76, 5);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 20);
+            this.label4.TabIndex = 29;
+            this.label4.Text = "UPLOAD";
+            // 
+            // tbUpSum
+            // 
+            this.tbUpSum.Location = new System.Drawing.Point(78, 33);
+            this.tbUpSum.Name = "tbUpSum";
+            this.tbUpSum.Size = new System.Drawing.Size(64, 23);
+            this.tbUpSum.TabIndex = 21;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 36);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(37, 15);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "Sum :";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(145, 70);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(57, 15);
+            this.label18.TabIndex = 28;
+            this.label18.Text = "MB / min";
+            // 
+            // tbUpEarn24H
+            // 
+            this.tbUpEarn24H.Location = new System.Drawing.Point(78, 100);
+            this.tbUpEarn24H.Name = "tbUpEarn24H";
+            this.tbUpEarn24H.Size = new System.Drawing.Size(64, 23);
+            this.tbUpEarn24H.TabIndex = 24;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(145, 104);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(57, 15);
+            this.label19.TabIndex = 25;
+            this.label19.Text = "MB / 24H";
+            // 
+            // tbUpEarnMin
+            // 
+            this.tbUpEarnMin.Location = new System.Drawing.Point(78, 66);
+            this.tbUpEarnMin.Name = "tbUpEarnMin";
+            this.tbUpEarnMin.Size = new System.Drawing.Size(64, 23);
+            this.tbUpEarnMin.TabIndex = 27;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(7, 103);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(50, 15);
+            this.label20.TabIndex = 23;
+            this.label20.Text = "All Day :";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(145, 37);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(25, 15);
+            this.label21.TabIndex = 22;
+            this.label21.Text = "MB";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 69);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(71, 15);
+            this.label22.TabIndex = 26;
+            this.label22.Text = "Earn Speed :";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.tbDownSum);
+            this.panel3.Controls.Add(this.label12);
+            this.panel3.Controls.Add(this.label11);
+            this.panel3.Controls.Add(this.tbDownEarn24H);
+            this.panel3.Controls.Add(this.label16);
+            this.panel3.Controls.Add(this.tbDownEarnMin);
+            this.panel3.Controls.Add(this.label15);
+            this.panel3.Controls.Add(this.label13);
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Location = new System.Drawing.Point(3, 166);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(212, 122);
+            this.panel3.TabIndex = 19;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label5.Location = new System.Drawing.Point(63, 6);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(94, 20);
+            this.label5.TabIndex = 30;
+            this.label5.Text = "DOWNLOAD";
+            // 
+            // tbDownSum
+            // 
+            this.tbDownSum.Location = new System.Drawing.Point(78, 29);
+            this.tbDownSum.Name = "tbDownSum";
+            this.tbDownSum.Size = new System.Drawing.Size(64, 23);
+            this.tbDownSum.TabIndex = 21;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(7, 32);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(37, 15);
+            this.label12.TabIndex = 20;
+            this.label12.Text = "Sum :";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(145, 66);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(57, 15);
+            this.label11.TabIndex = 28;
+            this.label11.Text = "MB / min";
+            // 
+            // tbDownEarn24H
+            // 
+            this.tbDownEarn24H.Location = new System.Drawing.Point(78, 96);
+            this.tbDownEarn24H.Name = "tbDownEarn24H";
+            this.tbDownEarn24H.Size = new System.Drawing.Size(64, 23);
+            this.tbDownEarn24H.TabIndex = 24;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(145, 100);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(57, 15);
+            this.label16.TabIndex = 25;
+            this.label16.Text = "MB / 24H";
+            // 
+            // tbDownEarnMin
+            // 
+            this.tbDownEarnMin.Location = new System.Drawing.Point(78, 62);
+            this.tbDownEarnMin.Name = "tbDownEarnMin";
+            this.tbDownEarnMin.Size = new System.Drawing.Size(64, 23);
+            this.tbDownEarnMin.TabIndex = 27;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 99);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(50, 15);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "All Day :";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(145, 33);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(25, 15);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "MB";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(7, 65);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(71, 15);
+            this.label14.TabIndex = 26;
+            this.label14.Text = "Earn Speed :";
             // 
             // tbActive
             // 
-            tbActive.Location = new Point(81, 3);
-            tbActive.Name = "tbActive";
-            tbActive.Size = new Size(64, 23);
-            tbActive.TabIndex = 18;
+            this.tbActive.Location = new System.Drawing.Point(81, 3);
+            this.tbActive.Name = "tbActive";
+            this.tbActive.Size = new System.Drawing.Size(64, 23);
+            this.tbActive.TabIndex = 18;
             // 
             // label10
             // 
-            label10.AutoSize = true;
-            label10.Location = new Point(10, 6);
-            label10.Name = "label10";
-            label10.Size = new Size(46, 15);
-            label10.TabIndex = 17;
-            label10.Text = "Active :";
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 6);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(46, 15);
+            this.label10.TabIndex = 17;
+            this.label10.Text = "Active :";
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(944, 526);
-            Controls.Add(panel1);
-            Controls.Add(label3);
-            Controls.Add(btnProxy);
-            Controls.Add(numWait);
-            Controls.Add(label2);
-            Controls.Add(dtgv);
-            Controls.Add(tbToken);
-            Controls.Add(label1);
-            Controls.Add(btnStart);
-            Name = "Form1";
-            Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)dtgv).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numWait).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(942, 526);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.btnProxy);
+            this.Controls.Add(this.numWait);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.dtgv);
+            this.Controls.Add(this.tbToken);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnStart);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgv)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numWait)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
@@ -337,17 +495,30 @@
         private DataGridViewTextBoxColumn gvStatus;
         private Label label3;
         private Label label2;
-        private Label label4;
-        private TextBox tbSum;
-        private Label label5;
-        private Label label6;
-        private TextBox tbEarnDay;
-        private Label label7;
-        private Label label8;
-        private TextBox tbEarnMin;
-        private Label label9;
         private Panel panel1;
         private TextBox tbActive;
         private Label label10;
+        private Panel panel2;
+        private Label label4;
+        private TextBox tbUpSum;
+        private Label label17;
+        private Label label18;
+        private TextBox tbUpEarn24H;
+        private Label label19;
+        private TextBox tbUpEarnMin;
+        private Label label20;
+        private Label label21;
+        private Label label22;
+        private Panel panel3;
+        private Label label5;
+        private TextBox tbDownSum;
+        private Label label12;
+        private Label label11;
+        private TextBox tbDownEarn24H;
+        private Label label16;
+        private TextBox tbDownEarnMin;
+        private Label label15;
+        private Label label13;
+        private Label label14;
     }
 }
