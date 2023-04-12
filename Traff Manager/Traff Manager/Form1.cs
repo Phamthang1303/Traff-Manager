@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.Generic;
 using System;
 using System.Threading;
+using System.Collections.Concurrent;
 
 namespace Traff_Manager
 {
@@ -37,7 +38,8 @@ namespace Traff_Manager
         bool isRun = false;
 
         List<Proxy> lstProxy = new List<Proxy>();
-        List<string> lstNameApp = new List<string>();
+
+        ConcurrentDictionary<int, string> cdNameApp = new ConcurrentDictionary<int, string>();
 
         Task Run;
         Task countTraffEachMin;
@@ -53,9 +55,9 @@ namespace Traff_Manager
                 ProxifierManager(lstProxy);
                 RunMain();
             }
-            catch
+            catch (Exception e)
             {
-                
+
             }
 
         }
@@ -77,7 +79,6 @@ namespace Traff_Manager
                             try
                             {
                                 startfaucet(inLine);
-                                //C.PerformanceCounter(test[inLine]);
                             }
                             catch { }
                             Interlocked.Decrement(ref iThread);
@@ -90,7 +91,7 @@ namespace Traff_Manager
                         C.Wait(3);
                     }
 
-                    if (status == 1 || inLine >= lstNameApp.Count())
+                    if (status == 1 || inLine >= cdNameApp.Count)
                     {
                         break;
                     }
@@ -114,10 +115,10 @@ namespace Traff_Manager
                 Common.SetDataGridView(dtgv, row, "gvStt", row.ToString());
                 Common.SetDataGridView(dtgv, row, "gvName", "Traff" + row);
                 Common.SetDataGridView(dtgv, row, "gvProxy", proxy.ipAddress + ":" + proxy.port);
-                Common.SetDataGridView(dtgv, row, "gvType", !string.IsNullOrEmpty(proxy.isType)? proxy.isType:"");
+                Common.SetDataGridView(dtgv, row, "gvType", !string.IsNullOrEmpty(proxy.isType) ? proxy.isType : "");
                 Common.SetDataGridView(dtgv, row, "gvEarnEachMin", "0");
                 Common.SetDataGridView(dtgv, row, "gvEarnEach24H", "0");
-                Common.SetDataGridView(dtgv, row, "gvActive", "0");
+                Common.SetDataGridView(dtgv, row, "gvStatus", "0");
                 #endregion
 
                 // Start Traff App
@@ -148,14 +149,15 @@ namespace Traff_Manager
                         {
                             upUsage = upCounter.NextValue() / 1024 / 1024;
                             downUsage = downCounter.NextValue() / 1024 / 1024;
-                            traceTraffUpEachMin.Insert(counter, upUsage);
+                            traceTraffUpEachMin[counter] = upUsage;
+                            traceTraffDownEachMin[counter] = downUsage;
                             trafficUpEachMin += upUsage;
                             trafficDownEachMin += downUsage;
                             Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage):F2}");
                             prevNetworkUsage = networkUsage;
                         }
                         C.Wait(60); // Wait for 60 second before checking again
-                        if(traceTraffUpEachMin.Count() >= 1440)
+                        if (traceTraffUpEachMin.Count() >= 1440)
                         {
                             counter = 1;
                         }
@@ -187,7 +189,7 @@ namespace Traff_Manager
         void ProxifierManager(List<Proxy> lstProxis)
         {
             // Kill process Proxifier.exe
-            C.killProcess("Proxifier.exe");
+            C.KillProcess("Proxifier.exe");
             string templateDefault = "";
             string proxyTemplate = "";
             string authenTemplate = "";
@@ -208,23 +210,24 @@ namespace Traff_Manager
             StringBuilder ruleList = new StringBuilder();
 
             // For create Default.ppx file
-            for (int i=1; i<= lstProxis.Count(); i++)
+            for (int i = 1; i <= lstProxis.Count(); i++)
             {
                 // check is authen
-                if (lstProxis[i].isAuthen)
+                int index = i - 1;
+                if (lstProxis[index].isAuthen)
                 {
-                    authen = "\n" + authenTemplate.Replace("{password}", lstProxis[i].password).Replace("{username}", lstProxis[i].username);
+                    authen = "\n" + authenTemplate.Replace("{password}", lstProxis[index].password).Replace("{username}", lstProxis[index].username);
                 }
                 else
                 {
                     authen = "";
                 }
                 // Create form each proxy
-                proxy = proxyTemplate.Replace("{id}", i.ToString()).Replace("{type}", lstProxis[i].isType)
-                        .Replace("{ipAddress}", lstProxis[i].ipAddress).Replace("{port}", lstProxis[i].port.ToString()).Replace("{authen}", authen);
+                proxy = proxyTemplate.Replace("{id}", i.ToString()).Replace("{type}", lstProxis[index].isType)
+                        .Replace("{ipAddress}", lstProxis[index].ipAddress).Replace("{port}", lstProxis[index].port.ToString()).Replace("{authen}", authen);
                 // Create rule for app
                 rule = ruleTemplate.Replace("{name}", "Rule " + i).Replace("{app}", "Traffmonetizer" + i + ".exe").Replace("{action}", i.ToString());
-                if (lstProxis[i].Equals(lstProxis.Last()))
+                if (lstProxis[index].Equals(lstProxis.Last()))
                 {
                     proxyList.Append(proxy);
                     ruleList.Append(rule);
@@ -234,7 +237,7 @@ namespace Traff_Manager
                     proxyList.Append(proxy + "\n");
                     ruleList.Append(rule + "\n");
                 }
-                
+
             }
             // Create form Default.ppx file with all proxies, rules
             strDefault = templateDefault.Replace("{ProxyList}", proxyList.ToString()).Replace("{RuleList}", ruleList.ToString());
@@ -244,7 +247,7 @@ namespace Traff_Manager
                 File.Delete(pathDefault);
             }
             C.WriteFileTxt(pathDefault, strDefault);
-            
+
             // Start Proxifier
             Process.Start(@"Extension\Proxifier PE\Proxifier.exe");
         }
@@ -262,7 +265,7 @@ namespace Traff_Manager
                 string settingFile = "";
                 string targetDirectory = "";
                 string sourceDirectory = @"Extension\traffmonetizer";
-                lstNameApp.Clear();                
+                cdNameApp.Clear();
                 // Clone Directory
                 if (Directory.Exists(sourceDirectory))
                 {
@@ -285,7 +288,10 @@ namespace Traff_Manager
                                     }
                                     C.WriteFileTxt(settingFile, settings);
                                     count++;
-                                    lstNameApp.Insert(i, "Traffmonetizer" + i + ".exe");
+                                    if (!cdNameApp.TryAdd(i, "Traffmonetizer" + i + ".exe"))
+                                    {
+                                        cdNameApp[i] = "Traffmonetizer" + i + ".exe";
+                                    }
                                 }
                             }
                         }
@@ -297,12 +303,15 @@ namespace Traff_Manager
                             }
                             C.WriteFileTxt(settingFile, settings);
                             count++;
-                            lstNameApp.Insert(i, "Traffmonetizer" + i + ".exe");
+                            if (!cdNameApp.TryAdd(i, "Traffmonetizer" + i + ".exe"))
+                            {
+                                cdNameApp[i] = "Traffmonetizer" + i + ".exe";
+                            }
                         }
                     }
                 }
             }
-            catch { }
+            catch (Exception e) { }
             return count;
         }
 
@@ -316,7 +325,7 @@ namespace Traff_Manager
             List<Proxy> lstPrx = new List<Proxy>();
             foreach (string prx in File.ReadAllLines(@"Data\proxy.txt").ToList())
             {
-                
+
                 if (prx.Contains("|"))
                 {
                     proxy = new Proxy(prx.Split('|')[1]);
@@ -385,7 +394,7 @@ namespace Traff_Manager
 
         private void tbToken_TextChanged(object sender, EventArgs e)
         {
-            settings = C.GetEachLineInFile(@"Extension\settings.json")[0];
+            settings = C.GetEachLineInFile(@"Extension\Template\settingsTemplate.json")[0];
             settings = settings.Replace("{token}", tbToken.Text);
         }
         #endregion
@@ -393,6 +402,18 @@ namespace Traff_Manager
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             isRun = true;
+        }
+
+        private void btnKillAll_Click(object sender, EventArgs e)
+        {
+            if (cdNameApp.Count > 0)
+            {
+                foreach (var s in cdNameApp)
+                {
+                    C.KillProcess(s.Value.Replace(".exe",""));
+                }
+            }
+            C.KillProcess("Proxifier");
         }
     }
 }

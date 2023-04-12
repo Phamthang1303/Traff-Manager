@@ -95,7 +95,7 @@ namespace Traff_Manager
             }
         }
 
-        public void killProcess(string processName)
+        public void KillProcess(string processName)
         {
             try
             {

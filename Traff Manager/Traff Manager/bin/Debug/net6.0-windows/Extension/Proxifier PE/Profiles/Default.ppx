@@ -24,32 +24,31 @@
 	</Options>
 	<ProxyList>
 		<Proxy id="1" type="SOCKS5">
+			<Authentication enabled="true">
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
+			</Authentication>
 			<Options>48</Options>
-			<Port>1234</Port>
-			<Address>1.2.3.4</Address>
+			<Port>18080</Port>
+			<Address>52.185.166.150</Address>
 		</Proxy>
 		<Proxy id="2" type="HTTPS">
 			<Authentication enabled="true">
-				<Password>pass1</Password>
-				<Username>user1</Username>
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
 			</Authentication>
 			<Options>48</Options>
-			<Port>1111</Port>
-			<Address>1.1.1.1</Address>
+			<Port>18080</Port>
+			<Address>104.41.173.97</Address>
 		</Proxy>
-		<Proxy id="3" type="SOCKS4">
+		<Proxy id="3" type="HTTPS">
 			<Authentication enabled="true">
-				<Password>pas2</Password>
-				<Username>user2</Username>
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
 			</Authentication>
 			<Options>48</Options>
-			<Port>1112</Port>
-			<Address>1.1.1.2</Address>
-		</Proxy>
-		<Proxy id="4" type="HTTPS">
-			<Options>48</Options>
-			<Port>1113</Port>
-			<Address>1.1.1.3</Address>
+			<Port>18080</Port>
+			<Address>150.95.156.248</Address>
 		</Proxy>
 	</ProxyList>
 	<ChainList />
@@ -68,11 +67,6 @@
 			<Action type="Proxy">3</Action>
 			<Applications>Traffmonetizer3.exe</Applications>
 			<Name>Rule 3</Name>
-		</Rule>
-		<Rule enabled="true">
-			<Action type="Proxy">4</Action>
-			<Applications>Traffmonetizer4.exe</Applications>
-			<Name>Rule 4</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">1</Action>
