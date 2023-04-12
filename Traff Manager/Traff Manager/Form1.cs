@@ -109,7 +109,7 @@ namespace Traff_Manager
         int startfaucet(int row)
         {
             int status = 0;
-            Proxy proxy = lstProxy[row-1];
+            Proxy proxy = lstProxy[row - 1];
             try
             {
                 #region Add data GridViews
@@ -155,12 +155,12 @@ namespace Traff_Manager
                             downUsage = downCounter.NextValue() / 1024 / 1024;
                             traceTraffUpEachMin[counter] = upUsage;
                             traceTraffDownEachMin[counter] = downUsage;
-                            
+
                             trafficUpEachMin += upUsage;
                             trafficDownEachMin += downUsage;
                             trafficUpSum += upUsage / 1024;
                             trafficDownSum += downUsage / 1024;
-                            if ((upUsage + downUsage)*1024 < 1)
+                            if ((upUsage + downUsage) * 1024 < 1)
                             {
                                 Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage) * 1024:F2}" + "KB/60s");
                             }
@@ -170,7 +170,22 @@ namespace Traff_Manager
                             }
                             prevNetworkUsage = networkUsage;
                         }
-                        C.Wait(60); // Wait for 60 second before checking again
+                        C.Wait(60);
+                        // Wait for 60 second before checking again
+                        int _count = 0;
+                        while (_count < 60)
+                        {
+                            _count++;
+                            C.Wait(1);
+                            if(status == 1)
+                            {
+                                break;
+                            }
+                        }
+                        if (status == 1)
+                        {
+                            break;
+                        }
                         if (traceTraffUpEachMin.Count() >= 1440)
                         {
                             counter = 1;
@@ -185,7 +200,7 @@ namespace Traff_Manager
                         trafficDownEach24H += totalDownTraff24H;
                         if ((totalUpTraff24H + totalDownTraff24H) > 1024)
                         {
-                            Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H)/1024:F2}GB/24H");
+                            Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H) / 1024:F2}GB/24H");
                         }
                         else
                         {
@@ -296,7 +311,7 @@ namespace Traff_Manager
                     if (!Directory.Exists(targetDirectory))
                     {
                         // Copy directory
-                        if (C.CopyDirectory(sourceDirectory, targetDirectory))
+                        if (Directory.Exists(targetDirectory) || C.CopyDirectory(sourceDirectory, targetDirectory))
                         {
                             if (File.Exists(settingFile))
                             {
@@ -447,7 +462,7 @@ namespace Traff_Manager
             {
                 foreach (var s in cdNameApp)
                 {
-                    C.KillProcess(s.Value.Replace(".exe",""));
+                    C.KillProcess(s.Value.Replace(".exe", ""));
                 }
             }
             C.KillProcess("Proxifier");
