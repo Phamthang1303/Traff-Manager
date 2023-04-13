@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KAutoHelper;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -162,6 +163,16 @@ namespace Traff_Manager
                 }
                 Thread.Sleep(5000); // Wait for 1 second before checking again
             }
+        }
+
+        public void Test()
+        {
+            int x = 0;
+            int y = 0;
+
+            IntPtr intPtr = IntPtr.Zero;
+
+   
         }
     }
 }

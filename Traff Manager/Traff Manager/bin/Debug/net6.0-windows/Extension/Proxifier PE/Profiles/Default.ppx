@@ -29,7 +29,7 @@
 				<Username>ngadt10</Username>
 			</Authentication>
 			<Options>48</Options>
-			<Port>18080</Port>
+			<Port>18081</Port>
 			<Address>52.185.166.150</Address>
 		</Proxy>
 		<Proxy id="2" type="HTTPS">
@@ -69,7 +69,7 @@
 			<Name>Rule 3</Name>
 		</Rule>
 		<Rule enabled="true">
-			<Action type="Proxy">1</Action>
+			<Action type="Block" />
 			<Name>Default</Name>
 		</Rule>
 	</RuleList>
