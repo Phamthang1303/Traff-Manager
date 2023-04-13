@@ -49,3 +49,20 @@ C:\VMN\Git\Traff Manager\Traff-Manager\Traff Manager\Traff Manager\obj\Debug\net
 C:\VMN\Git\Traff Manager\Traff-Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.pdb
 C:\VMN\Git\Traff Manager\Traff-Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.genruntimeconfig.cache
 C:\VMN\Git\Traff Manager\Traff-Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\ref\Traff Manager.dll
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\bin\Debug\net6.0-windows\Traff Manager.exe
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\bin\Debug\net6.0-windows\Traff Manager.deps.json
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\bin\Debug\net6.0-windows\Traff Manager.runtimeconfig.json
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\bin\Debug\net6.0-windows\Traff Manager.dll
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\bin\Debug\net6.0-windows\Traff Manager.pdb
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.csproj.AssemblyReference.cache
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff_Manager.Form1.resources
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.csproj.GenerateResource.cache
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.GeneratedMSBuildEditorConfig.editorconfig
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.AssemblyInfoInputs.cache
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.AssemblyInfo.cs
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.csproj.CoreCompileInputs.cache
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.dll
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\refint\Traff Manager.dll
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.pdb
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.genruntimeconfig.cache
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\ref\Traff Manager.dll

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\VMN\\Git\\Traff Manager\\Traff-Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj": {}
+    "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj": {}
   },
   "projects": {
-    "C:\\VMN\\Git\\Traff Manager\\Traff-Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj": {
+    "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\VMN\\Git\\Traff Manager\\Traff-Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
+        "projectUniqueName": "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
         "projectName": "Traff Manager",
-        "projectPath": "C:\\VMN\\Git\\Traff Manager\\Traff-Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
-        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\VMN\\Git\\Traff Manager\\Traff-Manager\\Traff Manager\\Traff Manager\\obj\\",
+        "projectPath": "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\Traff Manager.csproj",
+        "packagesPath": "C:\\Users\\Thang Pham\\.nuget\\packages\\",
+        "outputPath": "D:\\Thang\\Git\\Traff Manager\\Traff Manager\\Traff Manager\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Thang Pham\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,7 +58,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

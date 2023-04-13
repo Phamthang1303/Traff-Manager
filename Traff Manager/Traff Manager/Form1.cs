@@ -68,36 +68,48 @@ namespace Traff_Manager
         {
             try
             {
-                int iThread = 0;
-                int inLine = 0;
-                while (true)
-                {
-                    if (iThread < maxThread)
-                    {
-                        inLine++;
-                        Interlocked.Increment(ref iThread);
-                        new Thread(() =>
-                        {
-                            try
-                            {
-                                startfaucet(inLine);
-                            }
-                            catch { }
-                            Interlocked.Decrement(ref iThread);
-                        }).Start();
-                        Thread.Sleep(10);
-                    }
-                    else
-                    {
-                        Application.DoEvents();
-                        C.Wait(3);
-                    }
+                //int iThread = 0;
+                //int inLine = 0;
+                //while (true)
+                //{
+                //    if (iThread < maxThread)
+                //    {
+                //        inLine++;
+                //        Interlocked.Increment(ref iThread);
+                //        new Thread(() =>
+                //        {
+                //            try
+                //            {
+                //                startfaucet(inLine);
+                //            }
+                //            catch { }
+                //            Interlocked.Decrement(ref iThread);
+                //        }).Start();
+                //        Thread.Sleep(10);
+                //    }
+                //    else
+                //    {
+                //        Application.DoEvents();
+                //        C.Wait(3);
+                //    }
 
-                    if (status == 1 || inLine >= cdNameApp.Count)
+                //    if (status == 1 || inLine >= cdNameApp.Count)
+                //    {
+                //        break;
+                //    }
+                //    C.Wait(Convert.ToInt32(numWait.Value));
+                //}
+                foreach(var app in cdNameApp)
+                {
+                    try
                     {
-                        break;
+                        startfaucet(app.Key);
+                        C.Wait(2);
                     }
-                    C.Wait(Convert.ToInt32(numWait.Value));
+                    catch (Exception e)
+                    {
+
+                    }
                 }
             }
             catch (Exception ex)
