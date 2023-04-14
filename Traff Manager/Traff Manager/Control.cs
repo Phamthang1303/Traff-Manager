@@ -171,8 +171,6 @@ namespace Traff_Manager
             int y = 0;
 
             IntPtr intPtr = IntPtr.Zero;
-
-   
         }
     }
 }

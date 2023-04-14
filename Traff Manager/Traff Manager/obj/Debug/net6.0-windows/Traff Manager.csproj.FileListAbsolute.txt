@@ -66,3 +66,5 @@ D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\
 D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.pdb
 D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.genruntimeconfig.cache
 D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\ref\Traff Manager.dll
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\bin\Debug\net6.0-windows\KAutoHelper.dll
+D:\Thang\Git\Traff Manager\Traff Manager\Traff Manager\obj\Debug\net6.0-windows\Traff Manager.csproj.CopyComplete
