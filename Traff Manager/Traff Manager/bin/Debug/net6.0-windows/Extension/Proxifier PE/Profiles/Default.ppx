@@ -55,21 +55,21 @@
 	<RuleList>
 		<Rule enabled="true">
 			<Action type="Proxy">1</Action>
-			<Applications>traffmonetizer1.exe</Applications>
+			<Applications>Traffmonetizer1.exe</Applications>
 			<Name>Rule 1</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">2</Action>
-			<Applications>traffmonetizer2.exe</Applications>
+			<Applications>Traffmonetizer2.exe</Applications>
 			<Name>Rule 2</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">3</Action>
-			<Applications>traffmonetizer3.exe</Applications>
+			<Applications>Traffmonetizer3.exe</Applications>
 			<Name>Rule 3</Name>
 		</Rule>
 		<Rule enabled="true">
-			<Action type="Block" />
+			<Action type="Proxy">1</Action>
 			<Name>Default</Name>
 		</Rule>
 	</RuleList>

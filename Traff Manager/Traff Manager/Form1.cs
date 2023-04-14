@@ -69,7 +69,7 @@ namespace Traff_Manager
         {
             try
             {
-                foreach(var app in cdNameApp)
+                foreach (var app in cdNameApp)
                 {
                     C.DeleteFile(roamingDirectory + @"\traffmonetizer\storage.json");
                     C.DeleteFile(roamingDirectory + @"\traffmonetizer\pid");
@@ -86,7 +86,7 @@ namespace Traff_Manager
                                     start(app.Key);
                                 }
                                 catch { }
-                                
+
                             }).Start();
                             Thread.Sleep(10);
                         }
@@ -95,7 +95,7 @@ namespace Traff_Manager
                             Application.DoEvents();
                             C.Wait(3);
                         }
-                        
+
                         C.Wait(Convert.ToInt32(numWait.Value));
                         if (iThread < 1)
                         {
@@ -117,18 +117,19 @@ namespace Traff_Manager
         int start(int row)
         {
             int status = 0;
-            Proxy proxy = lstProxy[row - 1];
+            int index = row - 1;
+            Proxy proxy = lstProxy[index];
             try
             {
                 #region Add data GridViews
-                Common.AddRow(dtgv, row);
-                Common.SetDataGridView(dtgv, row, "gvStt", row.ToString());
-                Common.SetDataGridView(dtgv, row, "gvName", "Traff" + row);
-                Common.SetDataGridView(dtgv, row, "gvProxy", proxy.ipAddress + ":" + proxy.port);
-                Common.SetDataGridView(dtgv, row, "gvType", !string.IsNullOrEmpty(proxy.isType) ? proxy.isType : "");
-                Common.SetDataGridView(dtgv, row, "gvEarnEachMin", "0");
-                Common.SetDataGridView(dtgv, row, "gvEarnEach24H", "0");
-                Common.SetDataGridView(dtgv, row, "gvStatus", "0");
+                Common.AddRow(dtgv, index);
+                Common.SetDataGridView(dtgv, index, "gvStt", row.ToString());
+                Common.SetDataGridView(dtgv, index, "gvName", "Traff" + row);
+                Common.SetDataGridView(dtgv, index, "gvProxy", proxy.ipAddress + ":" + proxy.port);
+                Common.SetDataGridView(dtgv, index, "gvType", !string.IsNullOrEmpty(proxy.isType) ? proxy.isType : "");
+                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", "0");
+                Common.SetDataGridView(dtgv, index, "gvEarnEach24H", "0");
+                Common.SetDataGridView(dtgv, index, "gvStatus", "0");
                 #endregion
 
                 // Start Traff App
@@ -151,6 +152,11 @@ namespace Traff_Manager
                     double totalDownTraff24H = 0;
                     List<double> traceTraffUpEachMin = new List<double>();
                     List<double> traceTraffDownEachMin = new List<double>();
+                    for (int i = 0; i < 1439; i++)
+                    {
+                        traceTraffUpEachMin.Add(0);
+                        traceTraffDownEachMin.Add(0);
+                    }
                     int counter = 0;
                     while (true)
                     {
@@ -172,11 +178,11 @@ namespace Traff_Manager
                             trafficDownSum += downUsage / 1024;
                             if ((upUsage + downUsage) * 1024 < 1)
                             {
-                                Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage) * 1024:F2}" + "KB/60s");
+                                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", $"{(upUsage + downUsage) * 1024:F2}" + "KB/60s");
                             }
                             else
                             {
-                                Common.SetDataGridView(dtgv, row, "gvEarnEachMin", $"{(upUsage + downUsage):F2}MB/60s");
+                                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", $"{(upUsage + downUsage):F2}MB/60s");
                             }
                             prevNetworkUsage = networkUsage;
                         }
@@ -187,7 +193,7 @@ namespace Traff_Manager
                         {
                             _count++;
                             C.Wait(1);
-                            if(status == 1)
+                            if (status == 1)
                             {
                                 break;
                             }
@@ -210,19 +216,19 @@ namespace Traff_Manager
                         trafficDownEach24H += totalDownTraff24H;
                         if ((totalUpTraff24H + totalDownTraff24H) > 1024)
                         {
-                            Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H) / 1024:F2}GB/24H");
+                            Common.SetDataGridView(dtgv, index, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H) / 1024:F2}GB/24H");
                         }
                         else
                         {
-                            Common.SetDataGridView(dtgv, row, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H):F2}MB/24H");
+                            Common.SetDataGridView(dtgv, index, "gvEarnEach24H", $"{(totalUpTraff24H + totalDownTraff24H):F2}MB/24H");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Common.SetDataGridView(dtgv, row, "gvStatus", "Error faucet: " + ex.ToString());
-                if(iThread >= 1)
+                Common.SetDataGridView(dtgv, index, "gvStatus", "Error faucet: " + ex.ToString());
+                if (iThread >= 1)
                 {
                     Interlocked.Decrement(ref iThread);
                 }
@@ -417,12 +423,12 @@ namespace Traff_Manager
         {
             while (true)
             {
-                tbUpEarnMin.Text = trafficUpEachMin.ToString();
-                tbUpEarn24H.Text = trafficUpEach24H.ToString();
-                tbUpSum.Text = trafficUpSum.ToString();
-                tbDownEarnMin.Text = trafficDownEachMin.ToString();
-                tbDownEarn24H.Text = trafficDownEach24H.ToString();
-                tbDownSum.Text = trafficDownSum.ToString();
+                tbUpEarnMin.Text = $"{trafficUpEachMin:F2}";
+                tbUpEarn24H.Text = $"{trafficUpEach24H:F2}";
+                tbUpSum.Text = $"{trafficUpSum:F2}";
+                tbDownEarnMin.Text = $"{trafficDownEachMin:F2}";
+                tbDownEarn24H.Text = $"{trafficDownEach24H:F2}";
+                tbDownSum.Text = $"{trafficDownSum:F2}";
                 C.Wait(5);
                 if (isRun)
                 {

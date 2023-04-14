@@ -106,6 +106,7 @@
             // 
             // dtgv
             // 
+            dtgv.AllowUserToAddRows = false;
             dtgv.AllowUserToDeleteRows = false;
             dtgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgv.Columns.AddRange(new DataGridViewColumn[] { gvStt, gvName, gvProxy, gvType, gvEarnEachMin, gvEarnEach24H, gvStatus });
@@ -174,7 +175,7 @@
             numWait.Name = "numWait";
             numWait.Size = new Size(41, 23);
             numWait.TabIndex = 5;
-            numWait.Value = new decimal(new int[] { 5, 0, 0, 0 });
+            numWait.Value = new decimal(new int[] { 10, 0, 0, 0 });
             // 
             // btnProxy
             // 
