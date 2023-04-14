@@ -1,10 +1,4 @@
-﻿using KAutoHelper;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace Traff_Manager
 {
@@ -32,6 +26,20 @@ namespace Traff_Manager
             {
                 file.WriteLine(text);
             }
+        }
+
+        public bool DeleteFile(string pathFile)
+        {
+            try
+            {
+                if (File.Exists(pathFile))
+                {
+                    File.Delete(pathFile);
+                    return true;
+                }
+            }
+            catch { }
+            return false;
         }
 
         public bool CopyFile(string pathFile, string pathFileClone)
@@ -163,14 +171,6 @@ namespace Traff_Manager
                 }
                 Thread.Sleep(5000); // Wait for 1 second before checking again
             }
-        }
-
-        public void Test()
-        {
-            int x = 0;
-            int y = 0;
-
-            IntPtr intPtr = IntPtr.Zero;
         }
     }
 }

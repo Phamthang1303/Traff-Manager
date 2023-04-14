@@ -23,7 +23,8 @@ namespace Traff_Manager
 
         #region Kai bao bien
         int status = 0;
-        int maxThread = 0;
+        int maxThread = 1;
+        int iThread = 0;
 
         double trafficUpEachMin = 0;
         double trafficUpEach24H = 0;
@@ -41,8 +42,8 @@ namespace Traff_Manager
 
         ConcurrentDictionary<int, string> cdNameApp = new ConcurrentDictionary<int, string>();
 
-        Task Run;
-        Task countTraffEachMin;
+        Task? Run;
+        Task? countTraffEachMin;
         Control C = new Control();
         #endregion
 
@@ -51,7 +52,7 @@ namespace Traff_Manager
         {
             try
             {
-                maxThread = CloneTraff(lstProxy.Count());
+                CloneTraff(lstProxy.Count());
                 C.Wait(2);
                 ProxifierManager(lstProxy);
                 C.Wait(5);
@@ -68,47 +69,42 @@ namespace Traff_Manager
         {
             try
             {
-                //int iThread = 0;
-                //int inLine = 0;
-                //while (true)
-                //{
-                //    if (iThread < maxThread)
-                //    {
-                //        inLine++;
-                //        Interlocked.Increment(ref iThread);
-                //        new Thread(() =>
-                //        {
-                //            try
-                //            {
-                //                startfaucet(inLine);
-                //            }
-                //            catch { }
-                //            Interlocked.Decrement(ref iThread);
-                //        }).Start();
-                //        Thread.Sleep(10);
-                //    }
-                //    else
-                //    {
-                //        Application.DoEvents();
-                //        C.Wait(3);
-                //    }
-
-                //    if (status == 1 || inLine >= cdNameApp.Count)
-                //    {
-                //        break;
-                //    }
-                //    C.Wait(Convert.ToInt32(numWait.Value));
-                //}
                 foreach(var app in cdNameApp)
                 {
-                    try
+                    C.DeleteFile(roamingDirectory + @"\traffmonetizer\storage.json");
+                    C.DeleteFile(roamingDirectory + @"\traffmonetizer\pid");
+                    C.Wait(1);
+                    while (true)
                     {
-                        startfaucet(app.Key);
-                        C.Wait(2);
+                        if (iThread < maxThread)
+                        {
+                            Interlocked.Increment(ref iThread);
+                            new Thread(() =>
+                            {
+                                try
+                                {
+                                    start(app.Key);
+                                }
+                                catch { }
+                                
+                            }).Start();
+                            Thread.Sleep(10);
+                        }
+                        else
+                        {
+                            Application.DoEvents();
+                            C.Wait(3);
+                        }
+                        
+                        C.Wait(Convert.ToInt32(numWait.Value));
+                        if (iThread < 1)
+                        {
+                            break;
+                        }
                     }
-                    catch (Exception e)
+                    if (status == 1)
                     {
-
+                        break;
                     }
                 }
             }
@@ -118,7 +114,7 @@ namespace Traff_Manager
             }
         }
 
-        int startfaucet(int row)
+        int start(int row)
         {
             int status = 0;
             Proxy proxy = lstProxy[row - 1];
@@ -140,6 +136,8 @@ namespace Traff_Manager
                 if (Directory.Exists(roamingDirectory + @"\traffmonetizer" + row))
                 {
                     Process process = Process.Start(pathApp);
+                    C.Wait(1);
+                    Interlocked.Decrement(ref iThread);
                     // Create the Performance Counters for the application
                     var networkCounter = new PerformanceCounter("Process", "IO Data Bytes/sec", process.ProcessName, true);
                     var upCounter = new PerformanceCounter("Process", "IO Write Bytes/sec", process.ProcessName, true);
@@ -224,6 +222,10 @@ namespace Traff_Manager
             catch (Exception ex)
             {
                 Common.SetDataGridView(dtgv, row, "gvStatus", "Error faucet: " + ex.ToString());
+                if(iThread >= 1)
+                {
+                    Interlocked.Decrement(ref iThread);
+                }
             }
             //C.RemoveDirectory(@"C:\potable\User Data\Profile " + row);
             return row;
@@ -317,20 +319,25 @@ namespace Traff_Manager
                 // Clone Directory
                 if (Directory.Exists(sourceDirectory))
                 {
-                    // Clone directory root
+                    // Delete directory root
                     targetDirectory = roamingDirectory + @"\traffmonetizer";
                     settingFile = targetDirectory + @"\settings.json";
-                    if (!Directory.Exists(targetDirectory))
+                    if (Directory.Exists(targetDirectory))
                     {
-                        // Copy directory
-                        if (Directory.Exists(targetDirectory) || C.CopyDirectory(sourceDirectory, targetDirectory))
+                        if (File.Exists(settingFile))
                         {
-                            if (File.Exists(settingFile))
-                            {
-                                File.Delete(settingFile);
-                            }
+                            File.Delete(settingFile);
                             C.WriteFileTxt(settingFile, settings);
                         }
+                        if (Directory.Exists(targetDirectory + @"\app"))
+                        {
+                            Directory.Delete(targetDirectory, true);
+                        }
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(targetDirectory);
+                        C.WriteFileTxt(settingFile, settings);
                     }
 
                     for (int i = 1; i <= quantity; i++)
