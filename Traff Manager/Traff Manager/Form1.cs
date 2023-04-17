@@ -131,7 +131,7 @@ namespace Traff_Manager
                 #endregion
 
                 // Start Traff App
-                string pathApp = roamingDirectory + @"\traffmonetizer" + row + @"\app\Traffmonetizer" + row + ".exe";
+                string pathApp = roamingDirectory + @"\traffmonetizer" + row + @"\app\traffmonetizer" + row + ".exe";
                 if (Directory.Exists(roamingDirectory + @"\traffmonetizer" + row))
                 {
                     Process process = Process.Start(pathApp);
@@ -280,7 +280,7 @@ namespace Traff_Manager
                 proxy = proxyTemplate.Replace("{id}", i.ToString()).Replace("{type}", lstProxis[index].isType)
                         .Replace("{ipAddress}", lstProxis[index].ipAddress).Replace("{port}", lstProxis[index].port.ToString()).Replace("{authen}", authen);
                 // Create rule for app
-                rule = ruleTemplate.Replace("{name}", "Rule " + i).Replace("{app}", "Traffmonetizer" + i + ".exe").Replace("{action}", i.ToString());
+                rule = ruleTemplate.Replace("{name}", "Rule " + i).Replace("{app}", "traffmonetizer" + i + ".exe").Replace("{action}", i.ToString());
                 if (lstProxis[index].Equals(lstProxis.Last()))
                 {
                     proxyList.Append(proxy);
@@ -309,7 +309,7 @@ namespace Traff_Manager
         /**
          * Clone folder traff
          * Replace file settings.json update Token
-         * Rename Traffmonetizer.exe, Traffmonetizer.exe.config
+         * Rename traffmonetizer.exe, traffmonetizer.exe.config
          */
         int CloneTraff(int quantity)
         {
@@ -354,8 +354,8 @@ namespace Traff_Manager
                             if (C.CopyDirectory(sourceDirectory, targetDirectory))
                             {
                                 // Rename traff
-                                if (C.RenameFile(targetDirectory + @"\app\Traffmonetizer.exe", "Traffmonetizer" + i + ".exe") &&
-                                    C.RenameFile(targetDirectory + @"\app\Traffmonetizer.exe.config", "Traffmonetizer" + i + ".exe.config"))
+                                if (C.RenameFile(targetDirectory + @"\app\traffmonetizer.exe", "traffmonetizer" + i + ".exe") &&
+                                    C.RenameFile(targetDirectory + @"\app\traffmonetizer.exe.config", "traffmonetizer" + i + ".exe.config"))
                                 {
                                     if (File.Exists(settingFile))
                                     {
@@ -363,9 +363,9 @@ namespace Traff_Manager
                                     }
                                     C.WriteFileTxt(settingFile, settings);
                                     count++;
-                                    if (!cdNameApp.TryAdd(i, "Traffmonetizer" + i + ".exe"))
+                                    if (!cdNameApp.TryAdd(i, "traffmonetizer" + i + ".exe"))
                                     {
-                                        cdNameApp[i] = "Traffmonetizer" + i + ".exe";
+                                        cdNameApp[i] = "traffmonetizer" + i + ".exe";
                                     }
                                 }
                             }
@@ -378,9 +378,9 @@ namespace Traff_Manager
                             }
                             C.WriteFileTxt(settingFile, settings);
                             count++;
-                            if (!cdNameApp.TryAdd(i, "Traffmonetizer" + i + ".exe"))
+                            if (!cdNameApp.TryAdd(i, "traffmonetizer" + i + ".exe"))
                             {
-                                cdNameApp[i] = "Traffmonetizer" + i + ".exe";
+                                cdNameApp[i] = "traffmonetizer" + i + ".exe";
                             }
                         }
                     }
