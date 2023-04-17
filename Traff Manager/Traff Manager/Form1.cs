@@ -474,7 +474,7 @@ namespace Traff_Manager
             settings = C.GetEachLineInFile(@"Extension\Template\settingsTemplate.json")[0];
             settings = settings.Replace("{token}", tbToken.Text);
         }
-        #endregion
+
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -492,5 +492,6 @@ namespace Traff_Manager
             }
             C.KillProcess("Proxifier");
         }
+        #endregion
     }
 }
