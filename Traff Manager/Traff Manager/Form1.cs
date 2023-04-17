@@ -17,8 +17,6 @@ namespace Traff_Manager
             settings = C.GetEachLineInFile(@"Extension\Template\settingsTemplate.json")[0];
             settings = settings.Replace("{token}", tbToken.Text);
             lstProxy = loadProxy();
-            countTraffEachMin = new Task(() => { MonitorTraff(); });
-            countTraffEachMin.Start();
         }
 
         #region Kai bao bien
@@ -441,9 +439,6 @@ namespace Traff_Manager
         #region Active Form Button
         private void btnStart_Click(object sender, EventArgs e)
         {
-            //CloneTraff(2);
-            //ProxifierManager(lstProxy);
-
             //startfaucet(0);
             if (btnStart.Text == "Start")
             {
@@ -452,18 +447,24 @@ namespace Traff_Manager
                 Run.Start();
                 status = 0;
                 btnStart.Text = "Stop";
+
+                isRun = false;
+                countTraffEachMin = new Task(() => { MonitorTraff(); });
+                countTraffEachMin.Start();
             }
             else if (btnStart.Text == "Stop")
             {
                 //Run.Dispose();
                 status = 1;
                 btnStart.Text = "Start";
+                isRun = true;
             }
         }
 
         private void btnProxy_Click(object sender, EventArgs e)
         {
-            Process.Start(@"Data\proxy.txt");
+            Process.Start("notepad.exe", @"Data\proxy.txt");
+            MessageBox.Show("Wait change proxy!");
             lstProxy.Clear();
             lstProxy = loadProxy();
             MessageBox.Show("Load all proxy: " + lstProxy.Count);
@@ -488,6 +489,7 @@ namespace Traff_Manager
                 foreach (var s in cdNameApp)
                 {
                     C.KillProcess(s.Value.Replace(".exe", ""));
+                    Thread.Sleep(50);
                 }
             }
             C.KillProcess("Proxifier");

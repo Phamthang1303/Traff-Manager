@@ -9,10 +9,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Reference Include="KAutoHelper">
-      <HintPath>..\..\..\..\HowKTeam\KAutoHelper.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
