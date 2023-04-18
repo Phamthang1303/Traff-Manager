@@ -29,7 +29,7 @@
 	<RuleList>
 {RuleList}
 		<Rule enabled="true">
-			<Action type="Proxy">1</Action>
+			<Action type="Block" />
 			<Name>Default</Name>
 		</Rule>
 	</RuleList>

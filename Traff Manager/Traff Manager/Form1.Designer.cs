@@ -45,10 +45,13 @@
             label2 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
+            tbUpAvg60M = new TextBox();
+            lbUpAvg60M = new Label();
+            label7 = new Label();
             label4 = new Label();
             tbUpSum = new TextBox();
             label17 = new Label();
-            label18 = new Label();
+            lbUp60S = new Label();
             tbUpEarn24H = new TextBox();
             label19 = new Label();
             tbUpEarnMin = new TextBox();
@@ -56,10 +59,13 @@
             label21 = new Label();
             label22 = new Label();
             panel3 = new Panel();
+            tbDownAvg60M = new TextBox();
+            lbDownAvg60M = new Label();
+            label9 = new Label();
             label5 = new Label();
             tbDownSum = new TextBox();
             label12 = new Label();
-            label11 = new Label();
+            lbDown60S = new Label();
             tbDownEarn24H = new TextBox();
             label16 = new Label();
             tbDownEarnMin = new TextBox();
@@ -211,17 +217,20 @@
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(tbActive);
             panel1.Controls.Add(label10);
-            panel1.Location = new Point(2, 226);
+            panel1.Location = new Point(2, 167);
             panel1.Name = "panel1";
-            panel1.Size = new Size(218, 293);
+            panel1.Size = new Size(218, 352);
             panel1.TabIndex = 17;
             // 
             // panel2
             // 
+            panel2.Controls.Add(tbUpAvg60M);
+            panel2.Controls.Add(lbUpAvg60M);
+            panel2.Controls.Add(label7);
             panel2.Controls.Add(label4);
             panel2.Controls.Add(tbUpSum);
             panel2.Controls.Add(label17);
-            panel2.Controls.Add(label18);
+            panel2.Controls.Add(lbUp60S);
             panel2.Controls.Add(tbUpEarn24H);
             panel2.Controls.Add(label19);
             panel2.Controls.Add(tbUpEarnMin);
@@ -230,8 +239,33 @@
             panel2.Controls.Add(label22);
             panel2.Location = new Point(3, 33);
             panel2.Name = "panel2";
-            panel2.Size = new Size(212, 127);
+            panel2.Size = new Size(212, 156);
             panel2.TabIndex = 29;
+            // 
+            // tbUpAvg60M
+            // 
+            tbUpAvg60M.Location = new Point(78, 97);
+            tbUpAvg60M.Name = "tbUpAvg60M";
+            tbUpAvg60M.Size = new Size(64, 23);
+            tbUpAvg60M.TabIndex = 31;
+            // 
+            // lbUpAvg60M
+            // 
+            lbUpAvg60M.AutoSize = true;
+            lbUpAvg60M.Location = new Point(145, 101);
+            lbUpAvg60M.Name = "lbUpAvg60M";
+            lbUpAvg60M.Size = new Size(59, 15);
+            lbUpAvg60M.TabIndex = 32;
+            lbUpAvg60M.Text = "MB / 60M";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(7, 100);
+            label7.Name = "label7";
+            label7.Size = new Size(60, 15);
+            label7.TabIndex = 30;
+            label7.Text = "Avg 60M :";
             // 
             // label4
             // 
@@ -260,18 +294,18 @@
             label17.TabIndex = 20;
             label17.Text = "Sum :";
             // 
-            // label18
+            // lbUp60S
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(145, 70);
-            label18.Name = "label18";
-            label18.Size = new Size(57, 15);
-            label18.TabIndex = 28;
-            label18.Text = "MB / min";
+            lbUp60S.AutoSize = true;
+            lbUp60S.Location = new Point(145, 70);
+            lbUp60S.Name = "lbUp60S";
+            lbUp60S.Size = new Size(57, 15);
+            lbUp60S.TabIndex = 28;
+            lbUp60S.Text = "MB / min";
             // 
             // tbUpEarn24H
             // 
-            tbUpEarn24H.Location = new Point(78, 100);
+            tbUpEarn24H.Location = new Point(78, 129);
             tbUpEarn24H.Name = "tbUpEarn24H";
             tbUpEarn24H.Size = new Size(64, 23);
             tbUpEarn24H.TabIndex = 24;
@@ -279,7 +313,7 @@
             // label19
             // 
             label19.AutoSize = true;
-            label19.Location = new Point(145, 104);
+            label19.Location = new Point(145, 133);
             label19.Name = "label19";
             label19.Size = new Size(57, 15);
             label19.TabIndex = 25;
@@ -295,7 +329,7 @@
             // label20
             // 
             label20.AutoSize = true;
-            label20.Location = new Point(7, 103);
+            label20.Location = new Point(7, 132);
             label20.Name = "label20";
             label20.Size = new Size(50, 15);
             label20.TabIndex = 23;
@@ -321,20 +355,48 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(tbDownAvg60M);
+            panel3.Controls.Add(lbDownAvg60M);
+            panel3.Controls.Add(label9);
             panel3.Controls.Add(label5);
             panel3.Controls.Add(tbDownSum);
             panel3.Controls.Add(label12);
-            panel3.Controls.Add(label11);
+            panel3.Controls.Add(lbDown60S);
             panel3.Controls.Add(tbDownEarn24H);
             panel3.Controls.Add(label16);
             panel3.Controls.Add(tbDownEarnMin);
             panel3.Controls.Add(label15);
             panel3.Controls.Add(label13);
             panel3.Controls.Add(label14);
-            panel3.Location = new Point(3, 166);
+            panel3.Location = new Point(3, 195);
             panel3.Name = "panel3";
-            panel3.Size = new Size(212, 122);
+            panel3.Size = new Size(212, 154);
             panel3.TabIndex = 19;
+            // 
+            // tbDownAvg60M
+            // 
+            tbDownAvg60M.Location = new Point(78, 95);
+            tbDownAvg60M.Name = "tbDownAvg60M";
+            tbDownAvg60M.Size = new Size(64, 23);
+            tbDownAvg60M.TabIndex = 32;
+            // 
+            // lbDownAvg60M
+            // 
+            lbDownAvg60M.AutoSize = true;
+            lbDownAvg60M.Location = new Point(145, 99);
+            lbDownAvg60M.Name = "lbDownAvg60M";
+            lbDownAvg60M.Size = new Size(59, 15);
+            lbDownAvg60M.TabIndex = 33;
+            lbDownAvg60M.Text = "MB / 60M";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(7, 98);
+            label9.Name = "label9";
+            label9.Size = new Size(60, 15);
+            label9.TabIndex = 31;
+            label9.Text = "Avg 60M :";
             // 
             // label5
             // 
@@ -363,18 +425,18 @@
             label12.TabIndex = 20;
             label12.Text = "Sum :";
             // 
-            // label11
+            // lbDown60S
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(145, 66);
-            label11.Name = "label11";
-            label11.Size = new Size(57, 15);
-            label11.TabIndex = 28;
-            label11.Text = "MB / min";
+            lbDown60S.AutoSize = true;
+            lbDown60S.Location = new Point(145, 66);
+            lbDown60S.Name = "lbDown60S";
+            lbDown60S.Size = new Size(57, 15);
+            lbDown60S.TabIndex = 28;
+            lbDown60S.Text = "MB / min";
             // 
             // tbDownEarn24H
             // 
-            tbDownEarn24H.Location = new Point(78, 96);
+            tbDownEarn24H.Location = new Point(78, 127);
             tbDownEarn24H.Name = "tbDownEarn24H";
             tbDownEarn24H.Size = new Size(64, 23);
             tbDownEarn24H.TabIndex = 24;
@@ -382,7 +444,7 @@
             // label16
             // 
             label16.AutoSize = true;
-            label16.Location = new Point(145, 100);
+            label16.Location = new Point(145, 131);
             label16.Name = "label16";
             label16.Size = new Size(57, 15);
             label16.TabIndex = 25;
@@ -398,7 +460,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new Point(7, 99);
+            label15.Location = new Point(7, 130);
             label15.Name = "label15";
             label15.Size = new Size(50, 15);
             label15.TabIndex = 23;
@@ -520,5 +582,17 @@
         private DataGridViewTextBoxColumn gvEarnEachMin;
         private DataGridViewTextBoxColumn gvEarnEach24H;
         private DataGridViewTextBoxColumn gvStatus;
+        private TextBox textBox1;
+        private Label label6;
+        private Label label7;
+        private TextBox textBox2;
+        private Label label8;
+        private Label label9;
+        private Label lbUpAvg60M;
+        private Label lbUp60S;
+        private Label lbDownAvg60M;
+        private Label lbDown60S;
+        private TextBox tbUpAvg60M;
+        private TextBox tbDownAvg60M;
     }
 }

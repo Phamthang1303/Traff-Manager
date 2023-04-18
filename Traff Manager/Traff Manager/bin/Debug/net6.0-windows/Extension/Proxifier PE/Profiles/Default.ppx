@@ -23,16 +23,7 @@
 		</ProxificationPortableEngine>
 	</Options>
 	<ProxyList>
-		<Proxy id="1" type="SOCKS5">
-			<Authentication enabled="true">
-				<Password>Trongnga95</Password>
-				<Username>ngadt10</Username>
-			</Authentication>
-			<Options>48</Options>
-			<Port>18081</Port>
-			<Address>52.185.166.150</Address>
-		</Proxy>
-		<Proxy id="2" type="HTTPS">
+		<Proxy id="1" type="HTTPS">
 			<Authentication enabled="true">
 				<Password>Trongnga95</Password>
 				<Username>ngadt10</Username>
@@ -41,6 +32,15 @@
 			<Port>18080</Port>
 			<Address>104.41.173.97</Address>
 		</Proxy>
+		<Proxy id="2" type="HTTPS">
+			<Authentication enabled="true">
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>18080</Port>
+			<Address>47.74.24.154</Address>
+		</Proxy>
 		<Proxy id="3" type="HTTPS">
 			<Authentication enabled="true">
 				<Password>Trongnga95</Password>
@@ -48,28 +48,70 @@
 			</Authentication>
 			<Options>48</Options>
 			<Port>18080</Port>
-			<Address>150.95.156.248</Address>
+			<Address>47.74.9.245</Address>
+		</Proxy>
+		<Proxy id="4" type="HTTPS">
+			<Authentication enabled="true">
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>18080</Port>
+			<Address>47.74.3.9</Address>
+		</Proxy>
+		<Proxy id="5" type="HTTPS">
+			<Authentication enabled="true">
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>18080</Port>
+			<Address>13.112.189.146</Address>
+		</Proxy>
+		<Proxy id="6" type="HTTPS">
+			<Authentication enabled="true">
+				<Password>Trongnga95</Password>
+				<Username>ngadt10</Username>
+			</Authentication>
+			<Options>48</Options>
+			<Port>18080</Port>
+			<Address>52.194.187.155</Address>
 		</Proxy>
 	</ProxyList>
 	<ChainList />
 	<RuleList>
 		<Rule enabled="true">
 			<Action type="Proxy">1</Action>
-			<Applications>Traffmonetizer1.exe</Applications>
+			<Applications>traffmonetizer1.exe</Applications>
 			<Name>Rule 1</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">2</Action>
-			<Applications>Traffmonetizer2.exe</Applications>
+			<Applications>traffmonetizer2.exe</Applications>
 			<Name>Rule 2</Name>
 		</Rule>
 		<Rule enabled="true">
 			<Action type="Proxy">3</Action>
-			<Applications>Traffmonetizer3.exe</Applications>
+			<Applications>traffmonetizer3.exe</Applications>
 			<Name>Rule 3</Name>
 		</Rule>
 		<Rule enabled="true">
-			<Action type="Proxy">1</Action>
+			<Action type="Proxy">4</Action>
+			<Applications>traffmonetizer4.exe</Applications>
+			<Name>Rule 4</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">5</Action>
+			<Applications>traffmonetizer5.exe</Applications>
+			<Name>Rule 5</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Proxy">6</Action>
+			<Applications>traffmonetizer6.exe</Applications>
+			<Name>Rule 6</Name>
+		</Rule>
+		<Rule enabled="true">
+			<Action type="Block" />
 			<Name>Default</Name>
 		</Rule>
 	</RuleList>

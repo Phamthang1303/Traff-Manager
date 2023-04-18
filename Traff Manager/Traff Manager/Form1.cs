@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System;
 using System.Threading;
 using System.Collections.Concurrent;
+using System.Reflection;
 
 namespace Traff_Manager
 {
@@ -17,6 +18,8 @@ namespace Traff_Manager
             settings = C.GetEachLineInFile(@"Extension\Template\settingsTemplate.json")[0];
             settings = settings.Replace("{token}", tbToken.Text);
             lstProxy = loadProxy();
+            //countTraffEachMin = new Task(() => { MonitorTraff(); });
+            //countTraffEachMin.Start();
         }
 
         #region Kai bao bien
@@ -43,6 +46,7 @@ namespace Traff_Manager
         Task? Run;
         Task? countTraffEachMin;
         Control C = new Control();
+        private delegate void UpdateTextboxDelegate(string text);
         #endregion
 
         #region Method
@@ -150,7 +154,7 @@ namespace Traff_Manager
                     double totalDownTraff24H = 0;
                     List<double> traceTraffUpEachMin = new List<double>();
                     List<double> traceTraffDownEachMin = new List<double>();
-                    for (int i = 0; i < 1439; i++)
+                    for (int i = 0; i < 1440 * 60; i++)
                     {
                         traceTraffUpEachMin.Add(0);
                         traceTraffDownEachMin.Add(0);
@@ -165,8 +169,8 @@ namespace Traff_Manager
                         {
                             trafficUpEachMin -= upUsage;
                             trafficUpEachMin -= downUsage;
-                            upUsage = upCounter.NextValue() / 1024 / 1024;
-                            downUsage = downCounter.NextValue() / 1024 / 1024;
+                            upUsage = upCounter.NextValue() / 1024;
+                            downUsage = downCounter.NextValue() / 1024;
                             traceTraffUpEachMin[counter] = upUsage;
                             traceTraffDownEachMin[counter] = downUsage;
 
@@ -176,18 +180,17 @@ namespace Traff_Manager
                             trafficDownSum += downUsage / 1024;
                             if ((upUsage + downUsage) * 1024 < 1)
                             {
-                                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", $"{(upUsage + downUsage) * 1024:F2}" + "KB/60s");
+                                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", $"{(upUsage + downUsage) * 1024:F2}" + "KB/s");
                             }
                             else
                             {
-                                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", $"{(upUsage + downUsage):F2}MB/60s");
+                                Common.SetDataGridView(dtgv, index, "gvEarnEachMin", $"{(upUsage + downUsage):F2}MB/s");
                             }
                             prevNetworkUsage = networkUsage;
                         }
-                        C.Wait(60);
                         // Wait for 60 second before checking again
                         int _count = 0;
-                        while (_count < 60)
+                        while (_count < 1)
                         {
                             _count++;
                             C.Wait(1);
@@ -303,7 +306,8 @@ namespace Traff_Manager
             C.WriteFileTxt(pathDefault, strDefault);
 
             // Start Proxifier
-            Process.Start(@"Extension\Proxifier PE\Proxifier.exe");
+            Process processProxifier = Process.Start(@"Extension\Proxifier PE\Proxifier.exe");
+            new Task(() => { MonitorTrafficProxifier(processProxifier); }).Start();
         }
 
         /**
@@ -434,6 +438,154 @@ namespace Traff_Manager
                 }
             }
         }
+
+
+        void MonitorTrafficProxifier(Process process)
+        {
+            // Create the Performance Counters for the application
+            var networkCounter = new PerformanceCounter("Process", "IO Data Bytes/sec", process.ProcessName, true);
+            var upCounter = new PerformanceCounter("Process", "IO Write Bytes/sec", process.ProcessName, true);
+            var downCounter = new PerformanceCounter("Process", "IO Read Bytes/sec", process.ProcessName, true);
+
+            // Continuously monitor the network usage  
+            double prevNetworkUsage = 0;
+            double upUsage = 0;
+            double downUsage = 0;
+
+            // Declare variable
+            double upSum = 0;
+            double downSum = 0;
+
+            List<double> traceTraffUpEach24H = new List<double>();
+            List<double> traceTraffDownEach24H = new List<double>();
+            List<double> traceTraffUpEach60M = new List<double>();
+            List<double> traceTraffDownEach60M = new List<double>();
+            for (int i = 0; i < 1440 * 60; i++)
+            {
+                traceTraffUpEach24H.Add(0);
+                traceTraffDownEach24H.Add(0);
+            }
+            for (int j = 1; j <= 3600; j++)
+            {
+                traceTraffUpEach60M.Add(0);
+                traceTraffDownEach60M.Add(0);
+            }
+            int counter = 0;
+            int _counter_60m = 0;
+            while (true)
+            {
+                // Get the network usage of the application
+                counter++;
+                _counter_60m++;
+                double networkUsage = networkCounter.NextValue();
+                if (prevNetworkUsage != networkUsage)
+                {
+                    upUsage = upCounter.NextValue() / 1024;
+                    downUsage = downCounter.NextValue() / 1024;
+                    traceTraffUpEach24H[counter] = upUsage;
+                    traceTraffDownEach24H[counter] = downUsage;
+
+                    traceTraffUpEach60M[_counter_60m] = upUsage;
+                    traceTraffDownEach60M[_counter_60m] = downUsage;
+
+                    upSum += upUsage;
+                    downSum += downUsage;
+
+                    // Wait for 60 second before checking again
+                    int _count = 0;
+                    while (_count < 1)
+                    {
+                        _count++;
+                        C.Wait(1);
+                        if (status == 1)
+                        {
+                            break;
+                        }
+                    }
+                    if (status == 1)
+                    {
+                        break;
+                    }
+                    if (traceTraffUpEach24H.Count() >= 1440)
+                    {
+                        counter = 1;
+                    }
+                    if (traceTraffUpEach60M.Count() >= 3600)
+                    {
+                        counter = 1;
+                    }
+                    prevNetworkUsage = networkUsage;
+                }
+                // Update Traffic each second
+                if (upUsage * 1024 < 1)
+                {
+                    UpdateTextbox(tbUpEarnMin, $"{upUsage * 1024:F2}");
+                    UpdateLabel(lbUp60S, "KB/s");
+                }
+                else
+                {
+                    UpdateTextbox(tbUpEarnMin, $"{upUsage:F2}");
+                    UpdateLabel(lbUp60S, "MB/s");
+                }
+
+                if (downUsage * 1024 < 1)
+                {
+                    UpdateTextbox(tbDownEarnMin, $"{downUsage * 1024:F2}");
+                    UpdateLabel(lbDown60S, "KB/s");
+                }
+                else
+                {
+                    UpdateTextbox(tbDownEarnMin, $"{downUsage:F2}MB/s");
+                    UpdateLabel(lbDown60S, "MB/s");
+                }
+
+                // Update Traffic Avg in 60 minutes
+                if (traceTraffUpEach60M.Sum() * 1024 < 1)
+                {
+                    UpdateTextbox(tbUpAvg60M, $"{traceTraffUpEach60M.Sum() * 1024/3600:F2}");
+                    UpdateLabel(lbUpAvg60M, "KB/60m");
+                }
+                else
+                {
+                    UpdateTextbox(tbUpAvg60M, $"{traceTraffUpEach60M.Sum()/ 3600:F2}");
+                    UpdateLabel(lbUpAvg60M, "MB/60m");
+                }
+
+                if (traceTraffDownEach60M.Sum() * 1024 < 1)
+                {
+                    UpdateTextbox(tbDownAvg60M, $"{traceTraffDownEach60M.Sum() * 1024 / 3600:F2}");
+                    UpdateLabel(lbDownAvg60M, "KB/60m");
+                }
+                else
+                {
+                    UpdateTextbox(tbDownAvg60M, $"{traceTraffDownEach60M.Sum() / 3600:F2}");
+                    UpdateLabel(lbDownAvg60M, "MB/60m");
+                }
+
+                UpdateTextbox(tbUpEarn24H, $"{traceTraffUpEach24H.Sum():F2}");
+                UpdateTextbox(tbUpSum, $"{upSum / 1024:F2}");
+                UpdateTextbox(tbDownEarn24H, $"{traceTraffDownEach24H.Sum():F2}");
+                UpdateTextbox(tbDownSum, $"{downSum / 1024:F2}");
+            }
+        }
+
+        private void UpdateTextbox(System.Windows.Forms.TextBox textBox, string text)
+        {
+            if (textBox.InvokeRequired == true)
+                textBox.Invoke((MethodInvoker)delegate { textBox.Text = text; });
+
+            else
+                textBox.Text = text;
+        }
+
+        private void UpdateLabel(System.Windows.Forms.Label label, string text)
+        {
+            if (label.InvokeRequired == true)
+                label.Invoke((MethodInvoker)delegate { label.Text = text; });
+
+            else
+                label.Text = text;
+        }
         #endregion
 
         #region Active Form Button
@@ -448,16 +600,12 @@ namespace Traff_Manager
                 status = 0;
                 btnStart.Text = "Stop";
 
-                isRun = false;
-                countTraffEachMin = new Task(() => { MonitorTraff(); });
-                countTraffEachMin.Start();
             }
             else if (btnStart.Text == "Stop")
             {
                 //Run.Dispose();
                 status = 1;
                 btnStart.Text = "Start";
-                isRun = true;
             }
         }
 
@@ -493,6 +641,12 @@ namespace Traff_Manager
                 }
             }
             C.KillProcess("Proxifier");
+            tbUpEarnMin.Text = $"{0:F2}";
+            tbUpEarn24H.Text = $"{0:F2}";
+            tbUpSum.Text = $"{0:F2}";
+            tbDownEarnMin.Text = $"{0:F2}";
+            tbDownEarn24H.Text = $"{0:F2}";
+            tbDownSum.Text = $"{0:F2}";
         }
         #endregion
     }
